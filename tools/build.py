@@ -52,7 +52,7 @@ def page(fn,title,desc,body,hero=None):
 <div><h4>Navigation</h4>{''.join(f'<a href="{f}">{n}</a>' for f,n in PAGES)}</div>
 <div><h4>Contact</h4><a href="tel:{TELH}">{TEL}</a><a href="mailto:{MAIL}">{MAIL}</a><span>59330 Hautmont</span></div>
 </div>
-<div class="container legal"><span>© <span id="year"></span> AP Toiture – SIRET 107 447 617 00013</span><a href="/admin" class="adm-link" data-noedit>Administration</a></div>
+<div class="container legal"><span>© <span id="year"></span> AP Toiture – SIRET 000 000 000 00000</span><a href="/admin" class="adm-link" data-noedit>Administration</a></div>
 </footer>
 <script src="script.js"></script>
 </body>
@@ -103,7 +103,7 @@ ph=lambda t:f'<figure class="shot"><div class="ph">{I["roof"].replace("width=\"2
 real=banner('Nos réalisations','Un aperçu de nos chantiers de couverture, zinguerie, pignon et velux.','Réalisations')+'<section class="section"><div class="container"><div class="gallery" id="gallery"></div></div></section>'+cta
 
 # ---------- A PROPOS
-infos=[('SIRET','107 447 617 00013'),('Activité','Couverture, zinguerie, pignon, velux'),('Zone','Hautmont (59330) et alentours'),('Contact',TEL)]
+infos=[('SIRET','000 000 000 00000'),('Activité','Couverture, zinguerie, pignon, velux'),('Zone','Hautmont (59330) et alentours'),('Contact',TEL)]
 inf=''.join(f'<div class="irow"><span>{a}</span><b>{b}</b></div>' for a,b in infos)
 about=banner('À propos','Une entreprise locale de couverture, à votre écoute.','À propos')+f'''<section class="section"><div class="container two"><div>
 <p class="eyebrow">Qui sommes-nous</p><h2>AP Toiture, artisan couvreur</h2>
