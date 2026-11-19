@@ -40,13 +40,16 @@ h3{font-size:1.05rem;margin-bottom:10px}
 .eyebrow::before{content:"";width:34px;height:3px;background:var(--red)}
 .lead{font-size:1.2rem;color:var(--muted);max-width:560px;margin-bottom:34px}
 /* hero */
-.hero{padding:90px 0;background:linear-gradient(110deg,#1a1a1a 0 55%,#202020 55%);border-bottom:4px solid var(--red);position:relative;overflow:hidden}
-.hero::after{content:"";position:absolute;right:-120px;top:0;bottom:0;width:420px;background:var(--red);opacity:.07;transform:skewX(-14deg)}
+.hero{padding:90px 0;background:#1a1a1a;border-bottom:4px solid var(--red);position:relative;overflow:hidden}
+.hero::before,.banner::before{content:"";position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(circle,rgba(91,146,220,.75) 1.7px,transparent 2px);background-size:24px 24px;-webkit-mask-image:radial-gradient(ellipse 55% 85% at 76% 50%,#000 0,rgba(0,0,0,.55) 40%,transparent 75%);mask-image:radial-gradient(ellipse 55% 85% at 76% 50%,#000 0,rgba(0,0,0,.55) 40%,transparent 75%)}
+.hero::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 40% 60% at 76% 50%,rgba(56,109,185,.18),transparent 70%)}
+.banner::before{-webkit-mask-image:radial-gradient(ellipse 45% 130% at 88% 50%,#000 0,rgba(0,0,0,.5) 45%,transparent 80%);mask-image:radial-gradient(ellipse 45% 130% at 88% 50%,#000 0,rgba(0,0,0,.5) 45%,transparent 80%)}
 .hero-in{display:grid;grid-template-columns:1.1fr .9fr;gap:60px;align-items:center;position:relative;z-index:1}
 .hero-btns{display:flex;flex-wrap:wrap;gap:14px}
 .hero-logo img{width:100%;filter:drop-shadow(0 10px 30px rgba(0,0,0,.5))}
 /* banners */
-.banner{padding:70px 0 60px;background:linear-gradient(110deg,#1a1a1a 0 60%,#202020 60%);border-bottom:4px solid var(--red)}
+.banner{padding:70px 0 60px;background:#1a1a1a;border-bottom:4px solid var(--red);position:relative;overflow:hidden}
+.banner .container{position:relative;z-index:1}
 .banner h1{font-size:clamp(2rem,4vw,3rem);margin-bottom:10px}
 .banner p:last-child{color:var(--muted);font-size:1.15rem;max-width:620px}
 .crumb{font-size:.85rem!important;color:var(--muted)!important;margin-bottom:16px;text-transform:uppercase;letter-spacing:.1em}
@@ -197,7 +200,8 @@ code{background:#333;padding:1px 6px;border-radius:3px}
   .hero-txt>:nth-child(5){animation-delay:.64s}
   .hero-logo{opacity:0;animation:zoomIn 1s cubic-bezier(.22,.8,.2,1) .3s forwards}
   .hero-logo img{animation:floaty 6s ease-in-out 1.4s infinite}
-  .hero::after{animation:drift 14s ease-in-out infinite}
+  @keyframes dots{from{background-position:0 0}to{background-position:24px 24px}}
+  .hero::before,.banner::before{animation:dots 6s linear infinite}
   .banner .container>*{opacity:0;animation:fadeUp .7s cubic-bezier(.22,.8,.2,1) forwards}
   .banner .container>:nth-child(1){animation-delay:.05s}.banner .container>:nth-child(2){animation-delay:.15s}.banner .container>:nth-child(3){animation-delay:.25s}
   .eyebrow::before{animation:grow .8s .3s cubic-bezier(.22,.8,.2,1) both}
