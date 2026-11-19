@@ -1,6 +1,6 @@
 import os
 OUT=os.path.join(os.path.dirname(os.path.abspath(__file__)),'..','public')
-TEL='06 03 50 82 30'; TELH='+33603508230'; MAIL='apcouvreur@gmail.com'
+TEL='06 03 50 82 30'; TELH='+33603508230'; MAIL='pro.ap.couverture@gmail.com'
 
 def ic(p,s=28): return f'<svg class="i" width="{s}" height="{s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{p}</svg>'
 I={
