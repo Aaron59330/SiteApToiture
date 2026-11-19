@@ -37,7 +37,7 @@ def page(fn,title,desc,body,hero=None):
 <div class="topbar"><div class="container"><span>{I['pin'].replace('width="22" height="22"','width="15" height="15"')} Hautmont (59330) et alentours</span><a href="tel:{TELH}">{I['phone'].replace('width="22" height="22"','width="15" height="15"')} {TEL}</a></div></div>
 <header class="header">
 <div class="container nav">
-<a href="index.html" class="logo" aria-label="AP Toiture, accueil"><img src="images/mascotte.png" alt="" width="62" height="35"><span>A.P <b>COUVERTURE</b></span></a>
+<a href="index.html" class="logo" aria-label="AP Toiture, accueil"><img src="images/mascotte.png" alt="" width="62" height="34"><span>P.A <b>COUVERTURE</b></span></a>
 <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false"><span></span><span></span><span></span></button>
 <nav class="menu">{nav}<a href="contact.html" class="btn btn-sm{' active' if fn=='contact.html' else ''}">Devis gratuit</a></nav>
 </div>
@@ -47,7 +47,7 @@ def page(fn,title,desc,body,hero=None):
 </main>
 <footer class="footer">
 <div class="container fgrid">
-<div><a href="index.html" class="logo"><img src="images/mascotte.png" alt="" width="62" height="35"><span>A.P <b>COUVERTURE</b></span></a>
+<div><a href="index.html" class="logo"><img src="images/mascotte.png" alt="" width="62" height="34"><span>P.A <b>COUVERTURE</b></span></a>
 <p>Couverture, zinguerie, pignon et velux.<br>Artisan couvreur à Hautmont.</p></div>
 <div><h4>Navigation</h4>{''.join(f'<a href="{f}">{n}</a>' for f,n in PAGES)}</div>
 <div><h4>Contact</h4><a href="tel:{TELH}">{TEL}</a><a href="mailto:{MAIL}">{MAIL}</a><span>59330 Hautmont</span></div>
@@ -86,7 +86,7 @@ index=f'''<section class="hero"><div class="container hero-in"><div class="hero-
 <h1>Votre toiture<br>entre de bonnes mains.</h1>
 <p class="lead">AP Toiture réalise la couverture, la zinguerie, les pignons et la pose de velux à Hautmont et dans les environs.</p>
 <div class="hero-btns"><a href="contact.html" class="btn">Demander un devis gratuit</a><a href="services.html" class="btn btn-ghost">Découvrir nos services</a></div><p class="hero-note">{I['shield']} Garantie décennale</p></div>
-<div class="hero-logo"><img src="images/logo.png" alt="Logo AP Couverture et Zinguerie"></div></div></section>
+<div class="hero-logo"><img src="images/logo.png" alt="Logo P.A Couverture et Zinguerie"></div></div></section>
 <section class="section"><div class="container"><div class="head"><p class="eyebrow">Nos métiers</p><h2>Ce que nous faisons</h2></div><div class="grid4">{cards}</div></div></section>
 <section class="section alt"><div class="container"><div class="head"><p class="eyebrow">Notre engagement</p><h2>Pourquoi choisir AP Toiture</h2></div><div class="grid2">{whyh}</div></div></section>
 {cta}'''
