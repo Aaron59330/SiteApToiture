@@ -56,6 +56,9 @@ h3{font-size:1.05rem;margin-bottom:10px}
 .head{margin-bottom:44px}
 .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
 .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:34px 50px}
+.hero-note{display:flex;align-items:center;gap:10px;margin-top:28px;color:#d6d6d6;font-weight:500}
+.hero-note svg{color:var(--red2)}
 .sico{display:grid;place-items:center;width:58px;height:58px;background:rgba(56,109,185,.16);color:var(--red2);border-left:3px solid var(--red);flex:none}
 .scard{display:flex;flex-direction:column;background:var(--card);padding:32px 28px;border:1px solid var(--line);border-bottom:3px solid var(--line);transition:.25s}
 .scard:hover{transform:translateY(-6px);border-bottom-color:var(--red);background:#2b2b2b}
@@ -124,6 +127,7 @@ code{background:#333;padding:1px 6px;border-radius:3px}
  .topbar span{display:none}.topbar .container{justify-content:center}
 }
 @media(max-width:620px){
+ .grid2{grid-template-columns:1fr}
  body{font-size:16px}
  .grid4,.grid3,.fgrid,.frow{grid-template-columns:1fr}
  .section{padding:60px 0}.hero{padding:56px 0}

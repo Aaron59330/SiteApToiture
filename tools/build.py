@@ -78,16 +78,17 @@ SERV=[
 cards=''.join(f'<a class="scard" href="services.html#{t.lower()}"><span class="sico">{I[k]}</span><h3>{t}</h3><p>{d}</p><span class="more">En savoir plus {I["arrow"]}</span></a>' for k,t,d,_ in SERV)
 why=[('file','Devis gratuit','Un chiffrage clair et détaillé, sans engagement et sans surprise.'),
      ('user','Un interlocuteur unique','Vous échangez directement avec l\'artisan, du devis à la fin du chantier.'),
-     ('shield','Travail soigné','Des finitions propres et un chantier laissé net à la fin des travaux.')]
+     ('shield','Garantie décennale','Vos travaux sont couverts par notre garantie décennale, pour construire en toute sérénité.'),
+     ('check','Travail soigné','Des finitions propres et un chantier laissé net à la fin des travaux.')]
 whyh=''.join(f'<div class="why"><span class="sico">{I[k]}</span><div><h3>{t}</h3><p>{d}</p></div></div>' for k,t,d in why)
 index=f'''<section class="hero"><div class="container hero-in"><div class="hero-txt">
 <p class="eyebrow">Couverture · Zinguerie · Pignon · Velux</p>
 <h1>Votre toiture<br>entre de bonnes mains.</h1>
 <p class="lead">AP Toiture réalise la couverture, la zinguerie, les pignons et la pose de velux à Hautmont et dans les environs.</p>
-<div class="hero-btns"><a href="contact.html" class="btn">Demander un devis gratuit</a><a href="services.html" class="btn btn-ghost">Découvrir nos services</a></div></div>
+<div class="hero-btns"><a href="contact.html" class="btn">Demander un devis gratuit</a><a href="services.html" class="btn btn-ghost">Découvrir nos services</a></div><p class="hero-note">{I['shield']} Garantie décennale</p></div>
 <div class="hero-logo"><img src="images/logo.png" alt="Logo AP Couverture et Zinguerie"></div></div></section>
 <section class="section"><div class="container"><div class="head"><p class="eyebrow">Nos métiers</p><h2>Ce que nous faisons</h2></div><div class="grid4">{cards}</div></div></section>
-<section class="section alt"><div class="container"><div class="head"><p class="eyebrow">Notre engagement</p><h2>Pourquoi choisir AP Toiture</h2></div><div class="grid3">{whyh}</div></div></section>
+<section class="section alt"><div class="container"><div class="head"><p class="eyebrow">Notre engagement</p><h2>Pourquoi choisir AP Toiture</h2></div><div class="grid2">{whyh}</div></div></section>
 {cta}'''
 
 # ---------- SERVICES
@@ -103,7 +104,7 @@ ph=lambda t:f'<figure class="shot"><div class="ph">{I["roof"].replace("width=\"2
 real=banner('Nos réalisations','Un aperçu de nos chantiers de couverture, zinguerie, pignon et velux.','Réalisations')+'<section class="section"><div class="container"><div class="gallery" id="gallery"></div></div></section>'+cta
 
 # ---------- A PROPOS
-infos=[('SIRET','000 000 000 00000'),('Activité','Couverture, zinguerie, pignon, velux'),('Zone','Hautmont (59330) et alentours'),('Contact',TEL)]
+infos=[('SIRET','000 000 000 00000'),('Activité','Couverture, zinguerie, pignon, velux'),('Garantie','Décennale'),('Zone','Hautmont (59330) et alentours'),('Contact',TEL)]
 inf=''.join(f'<div class="irow"><span>{a}</span><b>{b}</b></div>' for a,b in infos)
 about=banner('À propos','Une entreprise locale de couverture, à votre écoute.','À propos')+f'''<section class="section"><div class="container two"><div>
 <p class="eyebrow">Qui sommes-nous</p><h2>AP Toiture, artisan couvreur</h2>
@@ -111,7 +112,7 @@ about=banner('À propos','Une entreprise locale de couverture, à votre écoute.
 <p class="para">Notre approche est simple : un diagnostic honnête, un devis clair, des travaux réalisés dans les règles de l'art et un chantier laissé propre.</p>
 <a class="btn" href="contact.html">Nous contacter</a></div>
 <div class="panel"><h3>Informations</h3>{inf}</div></div></section>
-<section class="section alt"><div class="container"><div class="head"><p class="eyebrow">Nos valeurs</p><h2>Notre façon de travailler</h2></div><div class="grid3">{whyh}</div></div></section>'''+cta
+<section class="section alt"><div class="container"><div class="head"><p class="eyebrow">Nos valeurs</p><h2>Notre façon de travailler</h2></div><div class="grid2">{whyh}</div></div></section>'''+cta
 
 # ---------- CONTACT
 def row(k,l,v,h=None):
