@@ -113,7 +113,7 @@ function fillGallery($, items, admin) {
     return;
   }
   const html = items.map(it => {
-    const alt = esc((it.title || it.description || 'Réalisation AP Toiture').slice(0, 120)).replace(/"/g, '&quot;');
+    const alt = esc((it.title || it.description || 'Réalisation P.A Couverture').slice(0, 120)).replace(/"/g, '&quot;');
     return `<figure class="shot" data-id="${it.id}"><a class="shot-img" href="${it.file}"><img src="${it.file}" alt="${alt}" loading="lazy"></a><figcaption><b class="t" data-ph="Ajouter un titre">${esc(it.title || '')}</b><span class="d" data-ph="Ajouter une description du chantier">${esc(it.description || '')}</span></figcaption></figure>`;
   }).join('');
   g.html(html);

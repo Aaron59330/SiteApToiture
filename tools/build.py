@@ -27,7 +27,7 @@ def page(fn,title,desc,body,hero=None):
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{title} | AP Toiture – Couvreur à Hautmont</title>
+<title>{title} | P.A Couverture – Couvreur à Hautmont</title>
 <meta name="description" content="{desc}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Barlow:wght@400;500;600&display=swap">
@@ -37,7 +37,7 @@ def page(fn,title,desc,body,hero=None):
 <div class="topbar"><div class="container"><span>{I['pin'].replace('width="22" height="22"','width="15" height="15"')} Hautmont (59330) et alentours</span><a href="tel:{TELH}">{I['phone'].replace('width="22" height="22"','width="15" height="15"')} {TEL}</a></div></div>
 <header class="header">
 <div class="container nav">
-<a href="index.html" class="logo" aria-label="AP Toiture, accueil"><img src="images/mascotte.png" alt="" width="59" height="34"><span>P.A <b>COUVERTURE</b></span></a>
+<a href="index.html" class="logo" aria-label="P.A Couverture, accueil"><img src="images/mascotte.png" alt="" width="59" height="34"><span>P.A <b>COUVERTURE</b></span></a>
 <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false"><span></span><span></span><span></span></button>
 <nav class="menu">{nav}<a href="contact.html" class="btn btn-sm{' active' if fn=='contact.html' else ''}">Devis gratuit</a></nav>
 </div>
@@ -52,7 +52,7 @@ def page(fn,title,desc,body,hero=None):
 <div><h4>Navigation</h4>{''.join(f'<a href="{f}">{n}</a>' for f,n in PAGES)}</div>
 <div><h4>Contact</h4><a href="tel:{TELH}">{TEL}</a><a href="mailto:{MAIL}">{MAIL}</a><span>59330 Hautmont</span></div>
 </div>
-<div class="container legal"><span>© <span id="year"></span> AP Toiture – SIRET 000 000 000 00000</span><a href="/admin" class="adm-link" data-noedit>Administration</a></div>
+<div class="container legal"><span>© <span id="year"></span> P.A Couverture – SIRET 000 000 000 00000</span><a href="/admin" class="adm-link" data-noedit>Administration</a></div>
 </footer>
 <script src="script.js"></script>
 </body>
@@ -84,11 +84,11 @@ whyh=''.join(f'<div class="why"><span class="sico">{I[k]}</span><div><h3>{t}</h3
 index=f'''<section class="hero"><div class="container hero-in"><div class="hero-txt">
 <p class="eyebrow">Couverture · Zinguerie · Pignon · Velux</p>
 <h1>Votre toiture<br>entre de bonnes mains.</h1>
-<p class="lead">AP Toiture réalise la couverture, la zinguerie, les pignons et la pose de velux à Hautmont et dans les environs.</p>
+<p class="lead">P.A Couverture réalise la couverture, la zinguerie, les pignons et la pose de velux à Hautmont et dans les environs.</p>
 <div class="hero-btns"><a href="contact.html" class="btn">Demander un devis gratuit</a><a href="services.html" class="btn btn-ghost">Découvrir nos services</a></div><p class="hero-note">{I['shield']} Garantie décennale</p></div>
 <div class="hero-logo"><img src="images/logo.png" alt="Logo P.A Couverture et Zinguerie"></div></div></section>
 <section class="section"><div class="container"><div class="head"><p class="eyebrow">Nos métiers</p><h2>Ce que nous faisons</h2></div><div class="grid4">{cards}</div></div></section>
-<section class="section alt"><div class="container"><div class="head"><p class="eyebrow">Notre engagement</p><h2>Pourquoi choisir AP Toiture</h2></div><div class="grid2">{whyh}</div></div></section>
+<section class="section alt"><div class="container"><div class="head"><p class="eyebrow">Notre engagement</p><h2>Pourquoi choisir P.A Couverture</h2></div><div class="grid2">{whyh}</div></div></section>
 {cta}'''
 
 # ---------- SERVICES
@@ -107,8 +107,8 @@ real=banner('Nos réalisations','Un aperçu de nos chantiers de couverture, zing
 infos=[('SIRET','000 000 000 00000'),('Activité','Couverture, zinguerie, pignon, velux'),('Garantie','Décennale'),('Zone','Hautmont (59330) et alentours'),('Contact',TEL)]
 inf=''.join(f'<div class="irow"><span>{a}</span><b>{b}</b></div>' for a,b in infos)
 about=banner('À propos','Une entreprise locale de couverture, à votre écoute.','À propos')+f'''<section class="section"><div class="container two"><div>
-<p class="eyebrow">Qui sommes-nous</p><h2>AP Toiture, artisan couvreur</h2>
-<p class="para">Basée à Hautmont, AP Toiture intervient auprès des particuliers et des professionnels pour tous les travaux de toiture : couverture, zinguerie, pignon et pose de velux.</p>
+<p class="eyebrow">Qui sommes-nous</p><h2>P.A Couverture, artisan couvreur</h2>
+<p class="para">Basée à Hautmont, P.A Couverture intervient auprès des particuliers et des professionnels pour tous les travaux de toiture : couverture, zinguerie, pignon et pose de velux.</p>
 <p class="para">Notre approche est simple : un diagnostic honnête, un devis clair, des travaux réalisés dans les règles de l'art et un chantier laissé propre.</p>
 <a class="btn" href="contact.html">Nous contacter</a></div>
 <div class="panel"><h3>Informations</h3>{inf}</div></div></section>
@@ -131,9 +131,9 @@ contact=banner('Contact et devis gratuit','Décrivez votre projet, nous vous ré
 <p class="ok" hidden>Votre messagerie va s'ouvrir pour envoyer la demande.</p></form></div></section>'''
 
 for fn,t,d,b in [
- ('index.html','Couvreur à Hautmont','AP Toiture, couvreur à Hautmont : couverture, zinguerie, pignon et velux. Devis gratuit.',index),
+ ('index.html','Couvreur à Hautmont','P.A Couverture, couvreur à Hautmont : couverture, zinguerie, pignon et velux. Devis gratuit.',index),
  ('services.html','Services','Couverture, zinguerie, pignon et pose de velux à Hautmont et alentours.',services),
- ('realisations.html','Réalisations','Découvrez les chantiers de toiture réalisés par AP Toiture.',real),
- ('a-propos.html','À propos','AP Toiture, artisan couvreur à Hautmont (59330).',about),
- ('contact.html','Contact','Contactez AP Toiture pour un devis gratuit : 06 03 50 82 30.',contact)]:
+ ('realisations.html','Réalisations','Découvrez les chantiers de toiture réalisés par P.A Couverture.',real),
+ ('a-propos.html','À propos','P.A Couverture, artisan couvreur à Hautmont (59330).',about),
+ ('contact.html','Contact','Contactez P.A Couverture pour un devis gratuit : 06 03 50 82 30.',contact)]:
     open(os.path.join(OUT,fn),'w').write(page(fn,t,d,b))

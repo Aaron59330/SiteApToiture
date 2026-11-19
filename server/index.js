@@ -163,6 +163,6 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Site AP Toiture : http://localhost:${PORT}`);
+  console.log(`Site P.A Couverture : http://localhost:${PORT}`);
   if (!auth.admin()) console.log('Aucun compte admin : lancez « npm run set-admin ».');
 });
