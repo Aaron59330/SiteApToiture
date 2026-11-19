@@ -50,3 +50,35 @@ if (form) {
     show(items().indexOf(a));
   });
 })();
+
+// Effets d'animation (désactivés en mode administrateur et si l'utilisateur réduit les animations)
+(function () {
+  const header = document.querySelector('.header');
+  const bar = document.createElement('div');
+  bar.className = 'progress';
+  document.body.appendChild(bar);
+  const onScroll = () => {
+    const h = document.documentElement;
+    const max = h.scrollHeight - h.clientHeight;
+    bar.style.transform = 'scaleX(' + (max > 0 ? Math.min(h.scrollTop / max, 1) : 0) + ')';
+    if (header) header.classList.toggle('scrolled', h.scrollTop > 10);
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  if (document.body.hasAttribute('data-admin')) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
+
+  const groups = '.head, .grid4 > *, .grid3 > *, .grid2 > *, .gallery > *, .srv > *, .two > *, .crow, .cta .container > *, .fgrid > *, .section .container > .lead2';
+  const targets = Array.from(document.querySelectorAll(groups)).filter(el => !el.closest('.hero, .banner'));
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  targets.forEach(el => {
+    const idx = Array.prototype.indexOf.call(el.parentElement.children, el);
+    el.style.setProperty('--d', Math.min(idx, 5) * 0.1 + 's');
+    el.classList.add('reveal');
+    if (el.getBoundingClientRect().top < window.innerHeight * 0.9) { el.classList.add('in'); el.style.transition = 'none'; requestAnimationFrame(() => { el.style.transition = ''; }); }
+    else io.observe(el);
+  });
+})();
