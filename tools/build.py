@@ -86,7 +86,7 @@ index=f'''<section class="hero"><div class="container hero-in"><div class="hero-
 <h1>Votre toiture<br>entre de bonnes mains.</h1>
 <p class="lead">P.A Couverture réalise la couverture, la zinguerie, les pignons et la pose de velux à Hautmont et dans les environs.</p>
 <div class="hero-btns"><a href="contact.html" class="btn">Demander un devis gratuit</a><a href="services.html" class="btn btn-ghost">Découvrir nos services</a></div><p class="hero-note">{I['shield']} Garantie décennale</p></div>
-<div class="hero-logo"><img src="images/logo.png" alt="Logo P.A Couverture et Zinguerie"></div></div></section>
+<div class="hero-logo"><div class="logo-shine"><img src="images/logo.png" alt="Logo P.A Couverture et Zinguerie"></div></div></div></section>
 <section class="section"><div class="container"><div class="head"><p class="eyebrow">Nos métiers</p><h2>Ce que nous faisons</h2></div><div class="grid4">{cards}</div></div></section>
 <section class="section alt"><div class="container"><div class="head"><p class="eyebrow">Notre engagement</p><h2>Pourquoi choisir P.A Couverture</h2></div><div class="grid2">{whyh}</div></div></section>
 {cta}'''

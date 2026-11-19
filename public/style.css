@@ -199,7 +199,13 @@ code{background:#333;padding:1px 6px;border-radius:3px}
   .hero-txt>:nth-child(3){animation-delay:.36s}.hero-txt>:nth-child(4){animation-delay:.5s}
   .hero-txt>:nth-child(5){animation-delay:.64s}
   .hero-logo{opacity:0;animation:zoomIn 1s cubic-bezier(.22,.8,.2,1) .3s forwards}
-  .hero-logo img{animation:floaty 6s ease-in-out 1.4s infinite}
+  .logo-shine{position:relative;animation:floaty 6s ease-in-out 1.4s infinite}
+  @keyframes shine{0%{background-position:100% 0}55%,100%{background-position:0 0}}
+  .logo-shine::after{content:"";position:absolute;inset:0;pointer-events:none;
+    background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.95) 47%,rgba(170,205,255,.95) 53%,transparent 60%);background-size:300% 100%;background-position:100% 0;
+    -webkit-mask:var(--m,url(images/logo.png)) center/contain no-repeat;mask:var(--m,url(images/logo.png)) center/contain no-repeat;
+    animation:shine 4.2s cubic-bezier(.4,0,.2,1) 1.6s infinite}
+  body[data-admin] .logo-shine::after{display:none}
   @keyframes dots{from{background-position:0 0}to{background-position:24px 24px}}
   .hero::before,.banner::before{animation:dots 6s linear infinite}
   .banner .container>*{opacity:0;animation:fadeUp .7s cubic-bezier(.22,.8,.2,1) forwards}

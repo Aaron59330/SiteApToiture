@@ -82,3 +82,12 @@ if (form) {
     else io.observe(el);
   });
 })();
+
+// Le reflet suit toujours l'image actuelle du logo
+(function () {
+  const w = document.querySelector('.logo-shine');
+  const img = w && w.querySelector('img');
+  if (!img) return;
+  const set = () => { if (img.currentSrc) w.style.setProperty('--m', 'url("' + img.currentSrc + '")'); };
+  if (img.complete) set(); else img.addEventListener('load', set);
+})();
