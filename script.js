@@ -30,5 +30,5 @@ document.getElementById('form').addEventListener('submit', e => {
   const f = new FormData(e.target);
   const body = `Nom : ${f.get('nom')}\nTél : ${f.get('tel')}\nE-mail : ${f.get('email')}\nTravaux : ${f.get('type')}\n\n${f.get('message')}`;
   e.target.querySelector('.ok').hidden = false;
-  location.href = `mailto:contact@toiturepro.fr?subject=${encodeURIComponent('Demande de devis')}&body=${encodeURIComponent(body)}`;
+  location.href = `mailto:apcouvreur@gmail.com?subject=${encodeURIComponent('Demande de devis')}&body=${encodeURIComponent(body)}`;
 });
