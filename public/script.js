@@ -83,11 +83,18 @@ if (form) {
   });
 })();
 
-// Le reflet suit toujours l'image actuelle du logo
+// Reflet brillant sur le logo : copie de l'image actuelle, balayée par un dégradé lumineux
 (function () {
+  if (document.body.hasAttribute('data-admin')) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   const w = document.querySelector('.logo-shine');
   const img = w && w.querySelector('img');
   if (!img) return;
-  const set = () => { if (img.currentSrc) w.style.setProperty('--m', 'url("' + img.currentSrc + '")'); };
-  if (img.complete) set(); else img.addEventListener('load', set);
+  const copy = img.cloneNode(false);
+  copy.className = 'shine-img';
+  copy.alt = '';
+  copy.setAttribute('aria-hidden', 'true');
+  copy.removeAttribute('data-edi');
+  copy.removeAttribute('data-edi-orig');
+  w.appendChild(copy);
 })();

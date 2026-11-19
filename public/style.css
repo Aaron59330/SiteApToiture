@@ -46,7 +46,7 @@ h3{font-size:1.05rem;margin-bottom:10px}
 .banner::before{-webkit-mask-image:radial-gradient(ellipse 45% 130% at 88% 50%,#000 0,rgba(0,0,0,.5) 45%,transparent 80%);mask-image:radial-gradient(ellipse 45% 130% at 88% 50%,#000 0,rgba(0,0,0,.5) 45%,transparent 80%)}
 .hero-in{display:grid;grid-template-columns:1.1fr .9fr;gap:60px;align-items:center;position:relative;z-index:1}
 .hero-btns{display:flex;flex-wrap:wrap;gap:14px}
-.hero-logo img{width:100%;filter:drop-shadow(0 10px 30px rgba(0,0,0,.5))}
+.hero-logo img{display:block;width:100%;filter:drop-shadow(0 10px 30px rgba(0,0,0,.5))}
 /* banners */
 .banner{padding:70px 0 60px;background:#1a1a1a;border-bottom:4px solid var(--red);position:relative;overflow:hidden}
 .banner .container{position:relative;z-index:1}
@@ -200,12 +200,12 @@ code{background:#333;padding:1px 6px;border-radius:3px}
   .hero-txt>:nth-child(5){animation-delay:.64s}
   .hero-logo{opacity:0;animation:zoomIn 1s cubic-bezier(.22,.8,.2,1) .3s forwards}
   .logo-shine{position:relative;animation:floaty 6s ease-in-out 1.4s infinite}
-  @keyframes shine{0%{background-position:100% 0}55%,100%{background-position:0 0}}
-  .logo-shine::after{content:"";position:absolute;inset:0;pointer-events:none;
-    background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.95) 47%,rgba(170,205,255,.95) 53%,transparent 60%);background-size:300% 100%;background-position:100% 0;
-    -webkit-mask:var(--m,url(images/logo.png)) center/contain no-repeat;mask:var(--m,url(images/logo.png)) center/contain no-repeat;
-    animation:shine 4.2s cubic-bezier(.4,0,.2,1) 1.6s infinite}
-  body[data-admin] .logo-shine::after{display:none}
+  @keyframes shine{0%{-webkit-mask-position:100% 0;mask-position:100% 0}55%,100%{-webkit-mask-position:0 0;mask-position:0 0}}
+  .logo-shine .shine-img{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none;
+    filter:brightness(2.6) saturate(.45) drop-shadow(0 0 7px rgba(150,205,255,.95));
+    -webkit-mask-image:linear-gradient(105deg,transparent 38%,#000 47%,#000 53%,transparent 62%);mask-image:linear-gradient(105deg,transparent 38%,#000 47%,#000 53%,transparent 62%);
+    -webkit-mask-size:300% 100%;mask-size:300% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:100% 0;mask-position:100% 0;
+    animation:shine 3.6s cubic-bezier(.4,0,.2,1) 1.2s infinite}
   @keyframes dots{from{background-position:0 0}to{background-position:24px 24px}}
   .hero::before,.banner::before{animation:dots 6s linear infinite}
   .banner .container>*{opacity:0;animation:fadeUp .7s cubic-bezier(.22,.8,.2,1) forwards}
