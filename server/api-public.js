@@ -79,7 +79,7 @@ router.post('/devis', limiter('devis', 6, 3600e3), photos, async (req, res) => {
   if (r.photos.length) lines.push(`Photos jointes : ${r.photos.length}`);
   lines.push('', r.message);
   mailer.send({ to: s.notifyEmail, subject: `Nouvelle demande ${contact ? 'de contact' : 'de devis'} : ${r.nom}${r.commune ? ' (' + r.commune + ')' : ''}`, text: lines.join('\n'), replyTo: r.email, attachments });
-  mailer.send({ to: r.email, subject: 'Votre demande a bien été reçue – P.A Couverture', text: `Bonjour ${r.nom},\n\nNous avons bien reçu votre demande et nous vous répondons rapidement.\n\nP.A Couverture\n06 03 50 82 30` });
+  mailer.send({ to: r.email, subject: 'Votre demande a bien été reçue – P.A Couverture', text: `Bonjour ${r.nom},\n\nNous avons bien reçu votre demande. Par précaution, nous préférons venir voir votre chantier sur place avant d'établir un devis précis : nous vous contactons rapidement pour convenir d'une visite.\n\nP.A Couverture\n06 03 50 82 30` });
   res.json({ ok: true });
 });
 

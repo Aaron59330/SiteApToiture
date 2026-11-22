@@ -226,7 +226,7 @@ FAQ=[
 ("Combien de temps dure une réfection de toiture ?","La durée dépend de la surface, du matériau choisi, de la complexité de la toiture et de la météo. Pour une maison individuelle, comptez en général de quelques jours à une ou deux semaines. Un planning précis vous est communiqué avec le devis."),
 ("Comment savoir si j'ai une fuite de toiture ?","Plusieurs signes doivent vous alerter : des taches ou auréoles au plafond ou sur les murs, de la peinture qui cloque, une odeur d'humidité dans les combles, des tuiles ou ardoises déplacées ou cassées, ou encore de l'eau qui déborde des gouttières. Dans le doute, mieux vaut faire contrôler la toiture rapidement."),
 ("Que faire en cas de fuite urgente ?","Protégez vos biens, coupez l'électricité si l'eau est proche d'une installation, puis appelez-nous. Retrouvez tous les conseils sur notre page Urgence fuite."),
-("Le devis est-il gratuit ?","Oui, nos devis sont gratuits et sans engagement. Ils sont clairs et détaillés, pour que vous sachiez exactement ce qui est prévu avant de vous décider."),
+("Le devis est-il gratuit ?","Oui, nos devis sont gratuits et sans engagement. Par précaution, nous préférons venir voir le chantier sur place avant d'établir un devis précis : il est ainsi clair et détaillé, et vous savez exactement ce qui est prévu avant de vous décider."),
 ("Quels matériaux de couverture proposez-vous ?","Nous intervenons sur les couvertures en tuiles, en ardoises et en bac acier. Nous vous conseillons selon votre habitation, votre budget et les contraintes de votre commune."),
 ("Quelles aides existent pour mes travaux ?","Selon la nature des travaux (notamment l'isolation de toiture) et votre situation, des aides peuvent exister : MaPrimeRénov', certificats d'économies d'énergie (CEE), éco-prêt à taux zéro, ou encore une TVA réduite (5,5 % ou 10 % selon les travaux). Les conditions et les montants évoluent régulièrement, et certaines aides dépendent de la certification de l'entreprise : renseignez-vous auprès de France Rénov' (france-renov.gouv.fr) avant de signer un devis."),
 ("Quelle garantie avez-vous sur les travaux ?","Nous disposons d'une garantie décennale. Elle couvre pendant 10 ans, à compter de la réception des travaux, les dommages qui compromettent la solidité de l'ouvrage ou le rendent impropre à son usage."),
@@ -265,13 +265,14 @@ def radios(name, items, first=True):
 def selopts(items): return ''.join(f'<option>{x}</option>' for x in items)
 CHK='<label class="chk-line"><input type="checkbox" name="consent" value="1" required><span>J\'accepte que mes informations soient utilisées pour traiter ma demande. <a href="confidentialite.html">Politique de confidentialité</a></span></label>'
 HP='<div class="hp" aria-hidden="true"><label>Ne pas remplir<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>'
-devis=banner('Devis en ligne gratuit','Décrivez votre projet en quelques étapes et envoyez-nous des photos : nous vous répondons rapidement.','Devis en ligne')+f"""<section class="section"><div class="container"><div class="wiz" id="devis">
+devis=banner('Devis en ligne gratuit','Décrivez votre projet et envoyez-nous des photos : nous vous recontactons pour organiser, par précaution, une visite sur place avant de vous remettre un devis précis.','Devis en ligne')+f"""<section class="section"><div class="container"><div class="wiz" id="devis">
+<div class="visit-note"><span class="sico">{I['pin']}</span><div><h3>Pourquoi une visite sur place ?</h3><p>Une toiture se juge de près : état réel des matériaux, support, charpente, accès. Par précaution, nous préférons venir voir votre chantier avant d'établir un devis ferme. Les informations et photos que vous nous envoyez nous aident à préparer cette visite. Le devis reste gratuit et sans engagement.</p></div></div>
 <ol class="wiz-steps"><li class="on">Travaux</li><li>Photos</li><li>Logement</li><li>Coordonnées</li></ol>
 <form class="wiz-form" id="devis-form" novalidate>
 <div class="wiz-pane on" data-step="1"><h2>Quels travaux envisagez-vous ?</h2><p>Choisissez le type de travaux.</p>
 <div class="opts">{radios('travaux',['Couverture','Zinguerie','Pignon','Velux','Réparation de fuite','Autre'])}</div>
 <label class="field">Décrivez votre projet (facultatif)<textarea name="message" rows="4" maxlength="2000"></textarea></label></div>
-<div class="wiz-pane" data-step="2"><h2>Ajoutez des photos de votre toiture</h2><p>Elles nous permettent d'estimer votre projet à distance, sans déplacement inutile.</p>
+<div class="wiz-pane" data-step="2"><h2>Ajoutez des photos de votre toiture</h2><p>Elles nous aident à préparer notre visite sur place et à comprendre votre projet.</p>
 <label class="drop" id="drop"><input type="file" accept="image/*" multiple id="photos"><b>Cliquez pour choisir vos photos</b><small>ou glissez-les ici · 6 photos maximum</small></label>
 <div class="thumbs" id="thumbs"></div>
 <p class="tips-box">Idéal : une vue d'ensemble de la toiture, un gros plan des zones abîmées et, en cas de fuite, l'intérieur (plafond, combles). Cette étape est facultative.</p></div>
@@ -285,7 +286,7 @@ devis=banner('Devis en ligne gratuit','Décrivez votre projet en quelques étape
 <p class="wiz-err" id="err" role="alert"></p>
 <div class="wiz-nav"><button type="button" class="btn btn-ghost" id="prev">Précédent</button><button type="button" class="btn" id="next">Suivant</button></div>
 </form>
-<div class="wiz-done" id="done" hidden><div class="ok-ico">{I['check'].replace('width="20" height="20"','width="34" height="34"')}</div><h2>Merci, votre demande est envoyée !</h2><p>Nous étudions votre projet et vous répondons rapidement par téléphone ou par e-mail.</p><p>Une urgence ? Appelez-nous au <a href="tel:{TELH}">{TEL}</a>.</p><a class="btn btn-ghost" href="index.html">Retour à l'accueil</a></div>
+<div class="wiz-done" id="done" hidden><div class="ok-ico">{I['check'].replace('width="20" height="20"','width="34" height="34"')}</div><h2>Merci, votre demande est envoyée !</h2><p>Nous étudions votre projet et vous contactons pour convenir d'une visite sur place, avant d'établir votre devis.</p><p>Vous pouvez aussi réserver directement un créneau, ou nous appeler au <a href="tel:{TELH}">{TEL}</a> en cas d'urgence.</p><div class="done-btns"><a class="btn" href="rendez-vous.html">Prendre rendez-vous</a><a class="btn btn-ghost" href="index.html">Retour à l'accueil</a></div></div>
 <noscript><p class="tips-box">Cette page nécessite JavaScript. Vous pouvez aussi nous appeler au {TEL}.</p></noscript>
 </div></div></section>"""
 
