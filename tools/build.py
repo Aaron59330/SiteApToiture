@@ -75,6 +75,7 @@ def banner(h,p,crumb):
 
 cta='''<section class="cta"><div class="container"><div><h2>Un projet de toiture ?</h2><p>Décrivez-nous vos travaux, nous vous répondons rapidement avec un devis gratuit.</p></div><div class="cta-btns"><a href="devis.html" class="btn btn-light">Demander un devis</a><a href="tel:%s" class="btn btn-ghost">%s</a></div></div></section>''' % (TELH,TEL)
 
+ALT={'couverture':'Toiture en ardoises avec fenêtres de toit','zinguerie':'Gouttière en zinc posée sur une avancée de toit','pignon':'Pignon habillé d\'ardoises','velux':'Pose d\'une fenêtre de toit sur la charpente','entretien':'Toiture en tuiles avant et après démoussage','travaux-dinterieur':'Combles aménagés en cours de finition','petite-maconnerie':'Souche de cheminée en briques sur une toiture en tuiles'}
 SERV=[
 ('roof','Couverture','Réfection et rénovation complète de votre toiture, quel que soit le matériau.',
  ['Dépose et pose de tuiles, ardoises, bac acier','Remplacement de tuiles cassées ou déplacées','Recherche et réparation de fuites','Pose d\'écran sous-toiture et liteaux','Traitement et nettoyage de toiture']),
@@ -127,7 +128,7 @@ sec=''
 for n,(k,t,d,l) in enumerate(SERV):
     lis=''.join(f'<li>{I["check"]}<span>{x}</span></li>' for x in l)
     rev=' rev' if n%2 else ''
-    sec+=f'<section class="section{" alt" if n%2 else ""}" id="{slugify(t)}"><div class="container srv{rev}"><div class="srv-ico">{I[k].replace("width=\"28\" height=\"28\"","width=\"90\" height=\"90\"")}</div><div><p class="eyebrow">0{n+1}</p><h2>{t}</h2><p class="lead2">{d}</p><ul class="list">{lis}</ul><a class="btn" href="devis.html">Devis pour {t.lower()}</a></div></div></section>'
+    sec+=f'<section class="section{" alt" if n%2 else ""}" id="{slugify(t)}"><div class="container srv{rev}"><figure class="srv-photo"><img src="images/services/{slugify(t)}.webp" alt="{ALT[slugify(t)]}" width="1200" height="900" loading="lazy"></figure><div><p class="eyebrow">0{n+1}</p><h2>{t}</h2><p class="lead2">{d}</p><ul class="list">{lis}</ul><a class="btn" href="devis.html">Devis pour {t.lower()}</a></div></div></section>'
 services=banner('Nos services','Sept savoir-faire pour votre toiture et votre habitat, de la couverture à la petite maçonnerie.','Services')+sec+cta
 
 # ---------- REALISATIONS

@@ -451,3 +451,10 @@ body[data-admin] .faq-q{cursor:text}
 .grid-svc{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
 @media(max-width:960px){.grid-svc{grid-template-columns:1fr 1fr}}
 @media(max-width:620px){.grid-svc{grid-template-columns:1fr}}
+
+.srv-photo{margin:0;border-top:5px solid var(--red);background:var(--card);box-shadow:0 14px 40px var(--shadow);overflow:hidden;max-width:520px;width:100%}
+.srv-photo img{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;transition:transform .6s cubic-bezier(.22,.8,.2,1)}
+.srv:hover .srv-photo img{transform:scale(1.05)}
+@media(max-width:960px){.srv-photo{max-width:100%}}
+.srv.rev .srv-photo{order:2;justify-self:end}
+@media(max-width:960px){.srv.rev .srv-photo{order:0;justify-self:start}}
