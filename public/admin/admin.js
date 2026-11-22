@@ -30,7 +30,8 @@
   const btnReset = el('button', { title: 'Rétablir le texte d\'origine de l\'élément sélectionné', disabled: '' }, 'Rétablir le texte');
   const btnSave = el('button', { class: 'save', disabled: '' }, 'Enregistrer');
   const btnOut = el('button', {}, 'Déconnexion');
-  const bar = el('div', { class: 'adm-bar' }, el('span', { class: 'tag' }, 'Mode administrateur'), btnEdit, btnReset, btnSave, btnOut, msg);
+  const dash = el('a', { class: 'adm-dash', href: '/admin/tableau-de-bord' }, 'Tableau de bord');
+  const bar = el('div', { class: 'adm-bar' }, el('span', { class: 'tag' }, 'Mode administrateur'), dash, btnEdit, btnReset, btnSave, btnOut, msg);
   document.body.append(bar);
 
   const say = (t, bad) => { msg.textContent = t; msg.className = 'adm-msg' + (bad ? ' bad' : ''); };

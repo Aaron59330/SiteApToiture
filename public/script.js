@@ -9,12 +9,27 @@ burger.addEventListener('click', () => {
 
 const form = document.getElementById('form');
 if (form) {
-  form.addEventListener('submit', e => {
+  form.addEventListener('submit', async e => {
     e.preventDefault();
+    const ok = form.querySelector('.ok'), bad = form.querySelector('.wiz-err'), btn = form.querySelector('button[type=submit]');
+    ok.hidden = true; if (bad) bad.hidden = true;
     const f = new FormData(form);
-    const body = `Nom : ${f.get('nom')}\nTéléphone : ${f.get('tel')}\nE-mail : ${f.get('email')}\nTravaux : ${f.get('type')}\n\n${f.get('message')}`;
-    form.querySelector('.ok').hidden = false;
-    location.href = `mailto:pro.ap.couverture@gmail.com?subject=${encodeURIComponent('Demande de devis')}&body=${encodeURIComponent(body)}`;
+    const fd = new FormData();
+    fd.append('source', 'contact'); fd.append('nom', f.get('nom')); fd.append('tel', f.get('tel')); fd.append('email', f.get('email'));
+    fd.append('travaux', f.get('type')); fd.append('message', f.get('message')); fd.append('website', f.get('website') || ''); fd.append('consent', '1');
+    btn.disabled = true;
+    try {
+      const r = await fetch('/api/devis', { method: 'POST', body: fd });
+      const d = await r.json().catch(() => ({}));
+      if (!r.ok) throw new Error(d.error || 'Envoi impossible.');
+      ok.hidden = false; form.reset();
+    } catch (ex) {
+      // service indisponible : on ouvre la messagerie en secours
+      const body = `Nom : ${f.get('nom')}\nTéléphone : ${f.get('tel')}\nE-mail : ${f.get('email')}\nTravaux : ${f.get('type')}\n\n${f.get('message')}`;
+      if (ex instanceof TypeError) location.href = `mailto:pro.ap.couverture@gmail.com?subject=${encodeURIComponent('Demande de contact')}&body=${encodeURIComponent(body)}`;
+      else if (bad) { bad.textContent = ex.message; bad.hidden = false; }
+    }
+    btn.disabled = false;
   });
 }
 
@@ -194,4 +209,24 @@ if (form) {
     }
   };
   input.addEventListener('input', run);
+})();
+
+// ---------- Annonce (fermable pour la session) et statistiques d'appel
+(function () {
+  const bar = document.querySelector('.announce');
+  if (bar) {
+    const key = 'pa-ann-' + (bar.getAttribute('data-text') || '').slice(0, 60);
+    let closed = false; try { closed = sessionStorage.getItem(key) === '1'; } catch (e) {}
+    if (closed && !document.body.hasAttribute('data-admin')) bar.classList.add('gone');
+    const x = bar.querySelector('.announce-x');
+    if (x) x.addEventListener('click', () => { bar.classList.add('gone'); try { sessionStorage.setItem(key, '1'); } catch (e) {} });
+  }
+  // compte les clics sur « Appeler » et sur l'e-mail (sans cookie, sans donnée personnelle)
+  if (document.body.hasAttribute('data-admin')) return;
+  document.addEventListener('click', e => {
+    const a = e.target.closest && e.target.closest('a[href^="tel:"], a[href^="mailto:"]');
+    if (!a || !navigator.sendBeacon) return;
+    const type = a.getAttribute('href').startsWith('tel:') ? 'call' : 'mail';
+    navigator.sendBeacon('/api/hit', new Blob([JSON.stringify({ type })], { type: 'application/json' }));
+  });
 })();

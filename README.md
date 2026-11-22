@@ -20,6 +20,13 @@ Connexion : `/admin` (lien « Administration » en bas de chaque page).
 - Page **Réalisations** : bouton « Ajouter des photos », puis cliquez sous chaque photo pour saisir titre et description.
   Flèches pour réordonner, croix pour supprimer.
 
+## Tableau de bord (`/admin/tableau-de-bord`)
+
+- **Demandes de devis** (avec photos privées) et messages de contact
+- **Rendez-vous** : à confirmer au plus tard N jours avant la date (3 par défaut), avec alerte en cas de retard
+- **Avis**, **Annonce** (bandeau en haut du site), **Horaires** de réservation, **Attestation décennale** (PDF)
+- **Statistiques** sans cookie et **QR code** imprimable
+
 ## Hébergement
 
 Ce site a besoin d'un serveur Node.js (GitHub Pages ne suffit pas). Il faut un disque persistant,
@@ -35,6 +42,7 @@ Variables d'environnement utiles :
 | `SESSION_SECRET` | clé de signature des sessions (sinon générée dans `data/`) |
 | `TRUST_PROXY=1` | derrière un reverse proxy / HTTPS géré par l'hébergeur |
 | `NODE_ENV=production` | cookie de session en mode « Secure » (HTTPS) |
+| `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`, `MAIL_FROM` | envoi des e-mails (notification de chaque demande, confirmations de rendez-vous). Facultatif : sans cela, tout est enregistré dans le tableau de bord. Avec Gmail : `smtp.gmail.com`, port `465`, et un « mot de passe d'application ». |
 
 ## Structure
 

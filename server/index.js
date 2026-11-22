@@ -5,6 +5,10 @@ const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
 const { UPLOADS, readJSON, writeJSON } = require('./store');
+const settings = require('./settings');
+const stats = require('./stats');
+const publicApi = require('./api-public');
+const adminApi = require('./api-admin');
 const auth = require('./auth');
 const { process: processPage, sanitize, faqJsonLd } = require('./render');
 
@@ -17,7 +21,7 @@ app.disable('x-powered-by');
 if (process.env.TRUST_PROXY) app.set('trust proxy', Number(process.env.TRUST_PROXY) || 1);
 
 app.use((req, res, next) => {
-  res.setHeader('Content-Security-Policy', "default-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; script-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'");
+  res.setHeader('Content-Security-Policy', "default-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; script-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'");
   res.setHeader('X-Content-Type-Options', 'nosniff');
   res.setHeader('Referrer-Policy', 'same-origin');
   next();
@@ -36,23 +40,47 @@ const getOverrides = () => readJSON('content.json', { global: {}, pages: {} });
 function sendPage(file) {
   return (req, res) => {
     const admin = req.isAdmin;
+    const st = settings.get();
     const { $ } = processPage(rawPages[file], {
       admin, page: file, overrides: getOverrides(),
+      extras: { announce: st.announcement, reviews: readJSON('reviews.json', []), googleUrl: st.reviews.googleUrl, hasDoc: fs.existsSync(publicApi.DOC) },
       gallery: file === 'realisations.html' ? getRealisations() : null,
     });
     if (file === 'faq.html') faqJsonLd($);
     res.setHeader('Cache-Control', admin ? 'no-store' : 'no-cache');
+    stats.view(req, file === 'index.html' ? '/' : '/' + file);
     res.type('html').send($.html());
   };
 }
 pages.forEach(f => app.get('/' + f, sendPage(f)));
 app.get('/', sendPage('index.html'));
 
+// ---------- API publique (devis, rendez-vous, statistiques) et administration
+app.use('/api/admin', adminApi.router);
+app.use('/api', publicApi.router);
+app.get('/attestation-decennale.pdf', publicApi.docRoute);
+
 // ---------- connexion
 app.get('/admin', (req, res) => {
   if (req.isAdmin) return res.redirect('/');
   res.setHeader('Cache-Control', 'no-store');
   res.sendFile(path.join(VIEWS, 'login.html'));
+});
+app.get('/admin/tableau-de-bord', (req, res) => {
+  if (!req.isAdmin) return res.redirect('/admin');
+  res.setHeader('Cache-Control', 'no-store');
+  res.sendFile(path.join(VIEWS, 'dashboard.html'));
+});
+app.get('/admin/qr-print', async (req, res) => {
+  if (!req.isAdmin) return res.redirect('/admin');
+  const QRCode = require('qrcode');
+  const url = adminApi.qrTarget(req);
+  if (!url) return res.status(400).type('text').send('Lien manquant : renseignez vos avis Google dans le tableau de bord.');
+  const svg = await QRCode.toString(url, { type: 'svg', margin: 1, color: { dark: '#10151d', light: '#ffffff' } });
+  const labels = { devis: 'Demandez votre devis gratuit', rdv: 'Prenez rendez-vous', avis: 'Laissez-nous un avis' };
+  const label = labels[req.query.target] || 'Découvrez notre site';
+  res.setHeader('Cache-Control', 'no-store');
+  res.type('html').send(`<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex"><title>QR code | P.A Couverture</title><link rel="stylesheet" href="/admin/print.css"></head><body><main class="poster"><img class="plogo" src="/images/logo.png" alt="P.A Couverture"><h1>${label}</h1><div class="qr">${svg}</div><p class="scan">Scannez avec l'appareil photo de votre téléphone</p><p class="tel">06 03 50 82 30</p><p class="mail">pro.ap.couverture@gmail.com</p><p class="noprint"><button id="go">Imprimer</button></p></main><script src="/admin/print.js"></script></body></html>`);
 });
 app.post('/api/login', auth.loginLimiter, async (req, res) => {
   if (req.get('x-requested-with') !== 'fetch') return res.status(403).json({ error: 'Requête refusée' });

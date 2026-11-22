@@ -28,11 +28,12 @@ function sanitize(html) {
 const isScopeGlobal = ($, el) => $(el).closest('header, footer, .topbar').length > 0;
 
 // Parcourt la page, repère textes et images modifiables, applique les modifications enregistrées.
-function process(raw, { admin = false, overrides = {}, page = '', gallery = null } = {}) {
+function process(raw, { admin = false, overrides = {}, page = '', gallery = null, extras = null } = {}) {
   const $ = cheerio.load(raw);
   const $body = $('body');
 
   if (gallery) fillGallery($, gallery, admin);
+  if (extras) injectExtras($, extras, admin);
 
   // 1. Entoure les textes « mixtes » (texte + éléments non-inline) dans des <span>
   $body.find('*').each((_, el) => {
@@ -88,6 +89,29 @@ function process(raw, { admin = false, overrides = {}, page = '', gallery = null
     $body.append('<script src="/admin/admin.js" defer></script>');
   }
   return { $, texts, imgs };
+}
+
+// Annonce, avis clients et documents : contenus gérés depuis le tableau de bord
+function injectExtras($, x, admin) {
+  const a = x.announce;
+  if (a && a.enabled && a.text) {
+    $('body').prepend(`<div class="announce tone-${a.tone === 'warn' ? 'warn' : 'info'}" role="status" data-noedit data-text="${esc(a.text).replace(/"/g, '&quot;')}"><span>${esc(a.text)}</span><button type="button" class="announce-x" aria-label="Fermer l'annonce">&times;</button></div>`);
+  }
+  $('[data-needs-doc]').each((_, el) => { if (!x.hasDoc) $(el).remove(); });
+  const sec = $('[data-reviews]');
+  if (sec.length) {
+    const list = x.reviews || [];
+    if (!list.length) {
+      if (admin) sec.replaceWith('<section class="section" data-noedit><div class="container"><div class="note-admin">Section « Avis clients » masquée pour les visiteurs tant qu\'aucun avis n\'est ajouté (tableau de bord &rarr; Avis).</div></div></section>');
+      else sec.remove();
+    } else {
+      const avg = list.reduce((s, r) => s + r.rating, 0) / list.length;
+      const stars = n => '★'.repeat(n) + '<i>' + '★'.repeat(5 - n) + '</i>';
+      const cards = list.slice(0, 6).map(r => `<blockquote class="card review"><div class="stars">${stars(r.rating)}</div><p>« ${esc(r.text)} »</p><cite>${esc(r.author)}${r.date ? ' · ' + esc(r.date.split('-').reverse().join('/')) : ''}</cite></blockquote>`).join('');
+      const link = x.googleUrl ? `<p class="reviews-more"><a class="btn btn-ghost" href="${esc(x.googleUrl).replace(/"/g, '&quot;')}" target="_blank" rel="noopener noreferrer">Voir tous les avis sur Google</a></p>` : '';
+      sec.replaceWith(`<section class="section alt" data-noedit><div class="container"><div class="head"><p class="eyebrow">Avis clients</p><h2>Ils nous ont fait confiance</h2><p class="rating"><span class="stars">${stars(Math.round(avg))}</span> <b>${avg.toFixed(1).replace('.', ',')}/5</b> · ${list.length} avis</p></div><div class="grid3">${cards}</div>${link}</div></section>`);
+    }
+  }
 }
 
 // Garde les liens « tel: » et « mailto: » cohérents avec le texte modifié

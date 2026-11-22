@@ -22,6 +22,8 @@ PAGES=[('index.html','Accueil'),('services.html','Services'),('realisations.html
 SUN='<svg class="sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>'
 MOON='<svg class="moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></svg>'
 
+EXTRA_JS={'devis.html':'<script src="devis.js"></script>','rendez-vous.html':'<script src="rdv.js"></script>'}
+
 def page(fn,title,desc,body,hero=None):
     nav=''.join(f'<a href="{f}"{" class=\"active\"" if f==fn else ""}>{n}</a>' for f,n in PAGES[:-1])
     return f'''<!DOCTYPE html>
@@ -43,7 +45,7 @@ def page(fn,title,desc,body,hero=None):
 <div class="container nav">
 <a href="index.html" class="logo" aria-label="P.A Couverture, accueil"><img src="images/mascotte.png" alt="" width="59" height="34"><span>P.A <b>COUVERTURE</b></span></a>
 <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false"><span></span><span></span><span></span></button>
-<nav class="menu">{nav}<button class="theme-toggle" type="button" aria-label="Basculer entre mode clair et mode sombre" title="Mode clair / sombre">{SUN}{MOON}</button><a href="contact.html" class="btn btn-sm{' active' if fn=='contact.html' else ''}">Devis gratuit</a></nav>
+<nav class="menu">{nav}<button class="theme-toggle" type="button" aria-label="Basculer entre mode clair et mode sombre" title="Mode clair / sombre">{SUN}{MOON}</button><a href="devis.html" class="btn btn-sm{' active' if fn=='devis.html' else ''}">Devis gratuit</a></nav>
 </div>
 </header>
 <main>
@@ -53,19 +55,21 @@ def page(fn,title,desc,body,hero=None):
 <div class="container fgrid">
 <div><a href="index.html" class="logo"><img src="images/mascotte.png" alt="" width="59" height="34"><span>P.A <b>COUVERTURE</b></span></a>
 <p>Couverture, zinguerie, pignon et velux.<br>Artisan couvreur à Hautmont.</p></div>
-<div><h4>Navigation</h4>{''.join(f'<a href="{f}">{n}</a>' for f,n in PAGES+[('urgence-fuite.html','Urgence fuite')])}</div>
+<div><h4>Navigation</h4>{''.join(f'<a href="{f}">{n}</a>' for f,n in PAGES)}</div>
+<div><h4>Ressources</h4><a href="devis.html">Devis en ligne</a><a href="rendez-vous.html">Prendre rendez-vous</a><a href="guide-materiaux.html">Guide des matériaux</a><a href="urgence-fuite.html">Urgence fuite</a></div>
 <div><h4>Contact</h4><a href="tel:{TELH}">{TEL}</a><a href="mailto:{MAIL}">{MAIL}</a><span>59330 Hautmont</span></div>
 </div>
 <div class="container legal"><span>© <span id="year"></span> P.A Couverture – SIRET 000 000 000 00000</span><span class="legal-links"><a href="mentions-legales.html">Mentions légales</a><a href="confidentialite.html">Confidentialité</a><a href="/admin" class="adm-link" data-noedit>Administration</a></span></div>
 </footer>
 <script src="script.js"></script>
+{EXTRA_JS.get(fn,"")}
 </body>
 </html>'''
 
 def banner(h,p,crumb):
     return f'<section class="banner"><div class="container"><p class="crumb"><a href="index.html">Accueil</a> / {crumb}</p><h1>{h}</h1><p>{p}</p></div></section>'
 
-cta='''<section class="cta"><div class="container"><div><h2>Un projet de toiture ?</h2><p>Décrivez-nous vos travaux, nous vous répondons rapidement avec un devis gratuit.</p></div><div class="cta-btns"><a href="contact.html" class="btn btn-light">Demander un devis</a><a href="tel:%s" class="btn btn-ghost">%s</a></div></div></section>''' % (TELH,TEL)
+cta='''<section class="cta"><div class="container"><div><h2>Un projet de toiture ?</h2><p>Décrivez-nous vos travaux, nous vous répondons rapidement avec un devis gratuit.</p></div><div class="cta-btns"><a href="devis.html" class="btn btn-light">Demander un devis</a><a href="tel:%s" class="btn btn-ghost">%s</a></div></div></section>''' % (TELH,TEL)
 
 SERV=[
 ('roof','Couverture','Réfection et rénovation complète de votre toiture, quel que soit le matériau.',
@@ -89,7 +93,7 @@ index=f'''<section class="hero"><div class="container hero-in"><div class="hero-
 <p class="eyebrow">Couverture · Zinguerie · Pignon · Velux</p>
 <h1>Votre toiture<br>entre de bonnes mains.</h1>
 <p class="lead">P.A Couverture réalise la couverture, la zinguerie, les pignons et la pose de velux à Hautmont et dans les environs.</p>
-<div class="hero-btns"><a href="contact.html" class="btn">Demander un devis gratuit</a><a href="services.html" class="btn btn-ghost">Découvrir nos services</a></div><p class="hero-note">{I['shield']} Garantie décennale</p></div>
+<div class="hero-btns"><a href="devis.html" class="btn">Demander un devis gratuit</a><a href="services.html" class="btn btn-ghost">Découvrir nos services</a></div><p class="hero-note">{I['shield']} Garantie décennale</p></div>
 <div class="hero-logo"><div class="logo-shine"><img src="images/logo.png" alt="Logo P.A Couverture et Zinguerie"></div></div></div></section>
 <section class="counters"><div class="container counters-grid">
 <div><strong class="count">4</strong><span>savoir-faire : couverture, zinguerie, pignon, velux</span></div>
@@ -106,6 +110,7 @@ index=f'''<section class="hero"><div class="container hero-in"><div class="hero-
 <li><span class="num">04</span><h3>Suivi</h3><p>Chantier nettoyé, contrôle final et garantie décennale : nous restons disponibles après les travaux.</p></li>
 </ol></div></section>
 <section class="section"><div class="container"><div class="head"><p class="eyebrow">Notre engagement</p><h2>Pourquoi choisir P.A Couverture</h2></div><div class="grid2">{whyh}</div></div></section>
+<section data-reviews></section>
 {cta}'''
 
 # ---------- SERVICES
@@ -113,7 +118,7 @@ sec=''
 for n,(k,t,d,l) in enumerate(SERV):
     lis=''.join(f'<li>{I["check"]}<span>{x}</span></li>' for x in l)
     rev=' rev' if n%2 else ''
-    sec+=f'<section class="section{" alt" if n%2 else ""}" id="{t.lower()}"><div class="container srv{rev}"><div class="srv-ico">{I[k].replace("width=\"28\" height=\"28\"","width=\"90\" height=\"90\"")}</div><div><p class="eyebrow">0{n+1}</p><h2>{t}</h2><p class="lead2">{d}</p><ul class="list">{lis}</ul><a class="btn" href="contact.html">Devis pour {t.lower()}</a></div></div></section>'
+    sec+=f'<section class="section{" alt" if n%2 else ""}" id="{t.lower()}"><div class="container srv{rev}"><div class="srv-ico">{I[k].replace("width=\"28\" height=\"28\"","width=\"90\" height=\"90\"")}</div><div><p class="eyebrow">0{n+1}</p><h2>{t}</h2><p class="lead2">{d}</p><ul class="list">{lis}</ul><a class="btn" href="devis.html">Devis pour {t.lower()}</a></div></div></section>'
 services=banner('Nos services','Quatre savoir-faire pour une toiture complète, de la couverture aux finitions.','Services')+sec+cta
 
 # ---------- REALISATIONS
@@ -129,7 +134,8 @@ about=banner('À propos','Une entreprise locale de couverture, à votre écoute.
 <p class="para">Notre approche est simple : un diagnostic honnête, un devis clair, des travaux réalisés dans les règles de l'art et un chantier laissé propre.</p>
 <a class="btn" href="contact.html">Nous contacter</a></div>
 <div class="panel"><h3>Informations</h3>{inf}</div></div></section>
-<section class="section alt"><div class="container"><div class="head"><p class="eyebrow">Nos valeurs</p><h2>Notre façon de travailler</h2></div><div class="grid2">{whyh}</div></div></section>'''+cta
+<section class="section alt"><div class="container"><div class="head"><p class="eyebrow">Nos valeurs</p><h2>Notre façon de travailler</h2></div><div class="grid2">{whyh}</div></div></section>
+<section class="section" data-needs-doc><div class="container"><div class="doc-card"><span class="sico">{I['file']}</span><div><h3>Attestation de garantie décennale</h3><p>Téléchargez notre attestation d'assurance en cours de validité.</p></div><a class="btn" href="/attestation-decennale.pdf" target="_blank" rel="noopener">Télécharger le PDF</a></div></div></section>'''+cta
 
 # ---------- CONTACT
 def row(k,l,v,h=None):
@@ -138,14 +144,15 @@ def row(k,l,v,h=None):
 contact=banner('Contact et devis gratuit','Décrivez votre projet, nous vous répondons rapidement.','Contact')+f'''<section class="section"><div class="container two">
 <div><p class="eyebrow">Nos coordonnées</p><h2>Parlons de votre toiture</h2>
 {row('phone','Téléphone',TEL,'tel:'+TELH)}{row('mail','E-mail',MAIL,'mailto:'+MAIL)}{row('pin','Adresse','59330 Hautmont')}
+<p class="para mt">Vous préférez fixer un créneau ?</p><a class="btn btn-ghost" href="rendez-vous.html">Prendre rendez-vous en ligne</a>
 </div>
-<form class="form" id="form"><h3>Demande de devis</h3>
+<form class="form" id="form"><h3>Écrivez-nous</h3><input type="hidden" name="source" value="contact"><div class="hp" aria-hidden="true"><label>Ne pas remplir<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
 <div class="frow"><label>Nom<input type="text" name="nom" required></label><label>Téléphone<input type="tel" name="tel" required></label></div>
 <label>E-mail<input type="email" name="email" required></label>
 <label>Type de travaux<select name="type"><option>Couverture</option><option>Zinguerie</option><option>Pignon</option><option>Velux</option><option>Réparation / fuite</option><option>Urgence fuite</option><option>Autre</option></select></label>
 <label>Votre projet<textarea name="message" rows="5"></textarea></label>
 <p class="fnote">Les informations saisies servent uniquement à répondre à votre demande. <a href="confidentialite.html">En savoir plus</a></p><button class="btn" type="submit">Envoyer la demande</button>
-<p class="ok" hidden>Votre messagerie va s'ouvrir pour envoyer la demande.</p></form></div></section>'''
+<p class="ok" hidden>Merci, votre message est envoyé. Nous vous répondons rapidement.</p><p class="wiz-err" hidden></p></form></div></section>'''
 
 
 TODO='[à compléter]'
@@ -172,11 +179,11 @@ mentions=doc('Mentions légales','Informations légales relatives au site et à 
 
 confid=doc('Politique de confidentialité','Comment vos données personnelles sont utilisées et protégées.',[
  ('Responsable du traitement',['P.A Couverture, 59330 Hautmont, joignable à l\'adresse '+MAIL+'.']),
- ('Données collectées',['Lorsque vous utilisez le formulaire de demande de devis, nous collectons les informations que vous saisissez : nom, numéro de téléphone, adresse e-mail, type de travaux et message.']),
- ('Finalité et base légale',['Ces données sont utilisées uniquement pour répondre à votre demande de devis et vous contacter à ce sujet (mesures précontractuelles prises à votre demande). Elles ne sont ni vendues, ni cédées à des tiers à des fins commerciales.']),
+ ('Données collectées',['Lorsque vous utilisez le formulaire de demande de devis, nous collectons les informations que vous saisissez : nom, numéro de téléphone, adresse e-mail, type de travaux, commune, caractéristiques du bâtiment, message, ainsi que les photos que vous choisissez de joindre. Pour la prise de rendez-vous : nom, téléphone, e-mail, adresse éventuelle et créneau choisi. Les photos sont stockées de façon privée et ne sont accessibles qu\'à l\'entreprise.']),
+ ('Finalité et base légale',['Ces données sont utilisées uniquement pour répondre à votre demande de devis, organiser un rendez-vous et vous contacter à ce sujet (mesures précontractuelles prises à votre demande). Elles ne sont ni vendues, ni cédées à des tiers à des fins commerciales.']),
  ('Durée de conservation',['Vos données sont conservées le temps nécessaire au traitement de votre demande, puis au maximum 3 ans après notre dernier échange, sauf obligation légale de conservation plus longue (par exemple en cas de contrat signé).']),
  ('Vos droits',['Conformément au RGPD, vous disposez d\'un droit d\'accès, de rectification, d\'effacement, d\'opposition, de limitation et de portabilité de vos données. Pour les exercer, écrivez à '+MAIL+'.','Si vous estimez, après nous avoir contactés, que vos droits ne sont pas respectés, vous pouvez introduire une réclamation auprès de la CNIL (www.cnil.fr).']),
- ('Cookies et polices',['Ce site n\'utilise aucun cookie publicitaire ni outil de mesure d\'audience. Un cookie technique strictement nécessaire n\'est déposé que pour la session de l\'administrateur du site.','Les polices de caractères sont chargées depuis le service Google Fonts, ce qui peut transmettre votre adresse IP à Google lors de l\'affichage des pages.']),
+ ('Cookies et polices',['Ce site n\'utilise aucun cookie publicitaire. Il mesure sa fréquentation de façon anonyme, sans cookie et sans conserver votre adresse IP (nombre de visites, pages vues, provenance) ; les visiteurs qui ont activé « Ne pas me suivre » ne sont pas comptés. Un cookie technique n\'est déposé que pour la session de l\'administrateur. Votre choix de thème clair ou sombre est mémorisé dans votre navigateur.','Les polices de caractères sont chargées depuis le service Google Fonts, ce qui peut transmettre votre adresse IP à Google lors de l\'affichage des pages.']),
 ],'Confidentialité')
 
 
@@ -251,6 +258,81 @@ urg=banner('Urgence fuite','Une fuite de toiture ? Gardez votre calme et suivez 
 <li><span class="num">04</span><h3>Contrôle</h3><p>Nous vérifions l'étanchéité et laissons le chantier propre.</p></li>
 </ol></div></section>"""+cta
 
+
+# ---------- DEVIS EN LIGNE
+def radios(name, items, first=True):
+    return ''.join(f'<label class="opt"><input type="radio" name="{name}" value="{v}"{" checked" if first and i==0 else ""}><span>{v}</span></label>' for i,v in enumerate(items))
+def selopts(items): return ''.join(f'<option>{x}</option>' for x in items)
+CHK='<label class="chk-line"><input type="checkbox" name="consent" value="1" required><span>J\'accepte que mes informations soient utilisées pour traiter ma demande. <a href="confidentialite.html">Politique de confidentialité</a></span></label>'
+HP='<div class="hp" aria-hidden="true"><label>Ne pas remplir<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>'
+devis=banner('Devis en ligne gratuit','Décrivez votre projet en quelques étapes et envoyez-nous des photos : nous vous répondons rapidement.','Devis en ligne')+f"""<section class="section"><div class="container"><div class="wiz" id="devis">
+<ol class="wiz-steps"><li class="on">Travaux</li><li>Photos</li><li>Logement</li><li>Coordonnées</li></ol>
+<form class="wiz-form" id="devis-form" novalidate>
+<div class="wiz-pane on" data-step="1"><h2>Quels travaux envisagez-vous ?</h2><p>Choisissez le type de travaux.</p>
+<div class="opts">{radios('travaux',['Couverture','Zinguerie','Pignon','Velux','Réparation de fuite','Autre'])}</div>
+<label class="field">Décrivez votre projet (facultatif)<textarea name="message" rows="4" maxlength="2000"></textarea></label></div>
+<div class="wiz-pane" data-step="2"><h2>Ajoutez des photos de votre toiture</h2><p>Elles nous permettent d'estimer votre projet à distance, sans déplacement inutile.</p>
+<label class="drop" id="drop"><input type="file" accept="image/*" multiple id="photos"><b>Cliquez pour choisir vos photos</b><small>ou glissez-les ici · 6 photos maximum</small></label>
+<div class="thumbs" id="thumbs"></div>
+<p class="tips-box">Idéal : une vue d'ensemble de la toiture, un gros plan des zones abîmées et, en cas de fuite, l'intérieur (plafond, combles). Cette étape est facultative.</p></div>
+<div class="wiz-pane" data-step="3"><h2>Votre logement</h2><p>Quelques informations pour préparer votre devis.</p>
+<div class="row2"><label class="field">Commune<input name="commune" autocomplete="address-level2" maxlength="80"></label><label class="field">Type de bâtiment<select name="batiment">{selopts(['Maison individuelle','Immeuble','Commerce ou local professionnel','Bâtiment agricole','Autre'])}</select></label></div>
+<div class="row2"><label class="field">Surface approximative de toiture (m²)<input name="surface" inputmode="numeric" maxlength="10"></label><label class="field">Délai souhaité<select name="delai">{selopts(['Dès que possible','Dans le mois','Dans les 3 mois','Pas pressé'])}</select></label></div></div>
+<div class="wiz-pane" data-step="4"><h2>Vos coordonnées</h2><p>Pour vous envoyer votre devis.</p>
+<div class="row2"><label class="field">Nom<input name="nom" autocomplete="name" maxlength="80"></label><label class="field">Téléphone<input name="tel" type="tel" autocomplete="tel" maxlength="30"></label></div>
+<label class="field">E-mail<input name="email" type="email" autocomplete="email" maxlength="120"></label>
+{HP}<div class="recap" id="recap"></div>{CHK}</div>
+<p class="wiz-err" id="err" role="alert"></p>
+<div class="wiz-nav"><button type="button" class="btn btn-ghost" id="prev">Précédent</button><button type="button" class="btn" id="next">Suivant</button></div>
+</form>
+<div class="wiz-done" id="done" hidden><div class="ok-ico">{I['check'].replace('width="20" height="20"','width="34" height="34"')}</div><h2>Merci, votre demande est envoyée !</h2><p>Nous étudions votre projet et vous répondons rapidement par téléphone ou par e-mail.</p><p>Une urgence ? Appelez-nous au <a href="tel:{TELH}">{TEL}</a>.</p><a class="btn btn-ghost" href="index.html">Retour à l'accueil</a></div>
+<noscript><p class="tips-box">Cette page nécessite JavaScript. Vous pouvez aussi nous appeler au {TEL}.</p></noscript>
+</div></div></section>"""
+
+# ---------- RENDEZ-VOUS
+rdv=banner('Prendre rendez-vous','Choisissez un créneau pour une visite ou un échange : nous confirmons votre rendez-vous quelques jours avant la date prévue.','Rendez-vous')+f"""<section class="section"><div class="container"><div class="wiz" id="rdv">
+<ol class="wiz-steps"><li class="on">Type</li><li>Date et heure</li><li>Coordonnées</li></ol>
+<form class="wiz-form" id="rdv-form" novalidate>
+<div class="wiz-pane on" data-step="1"><h2>Quel type de rendez-vous ?</h2><p>Choisissez ce qui vous convient.</p>
+<div class="opts">{radios('kind',['Visite sur place pour devis','Contrôle / diagnostic de toiture','Échange téléphonique'])}</div>
+<p class="tips-box">Votre rendez-vous est enregistré comme une demande. Nous le confirmons <b id="cdb">3</b> jours avant la date prévue, par téléphone ou par e-mail.</p></div>
+<div class="wiz-pane" data-step="2"><h2>Choisissez une date et une heure</h2><p>Les jours disponibles sont indiqués en clair.</p>
+<div class="cal" id="cal"><div class="cal-head"><button type="button" id="cprev" aria-label="Mois précédent">&lsaquo;</button><span id="cmonth"></span><button type="button" id="cnext" aria-label="Mois suivant">&rsaquo;</button></div><div class="cal-grid" id="cgrid"></div></div>
+<p class="cal-empty" id="ctitle" hidden></p><div class="times" id="times"></div></div>
+<div class="wiz-pane" data-step="3"><h2>Vos coordonnées</h2><p>Pour confirmer votre rendez-vous.</p>
+<div class="row2"><label class="field">Nom<input name="nom" autocomplete="name" maxlength="80"></label><label class="field">Téléphone<input name="tel" type="tel" autocomplete="tel" maxlength="30"></label></div>
+<label class="field">E-mail<input name="email" type="email" autocomplete="email" maxlength="120"></label>
+<label class="field">Adresse du chantier (facultatif)<input name="adresse" autocomplete="street-address" maxlength="160"></label>
+<label class="field">Précisions (facultatif)<textarea name="note" rows="3" maxlength="1000"></textarea></label>
+{HP}<div class="recap" id="recap"></div>{CHK}</div>
+<p class="wiz-err" id="err" role="alert"></p>
+<div class="wiz-nav"><button type="button" class="btn btn-ghost" id="prev">Précédent</button><button type="button" class="btn" id="next">Suivant</button></div>
+</form>
+<div class="wiz-done" id="done" hidden><div class="ok-ico">{I['check'].replace('width="20" height="20"','width="34" height="34"')}</div><h2>Votre demande de rendez-vous est enregistrée</h2><p>Nous vous la confirmerons par téléphone ou par e-mail avant la date prévue.</p><p>Besoin de nous joindre ? <a href="tel:{TELH}">{TEL}</a></p><a class="btn btn-ghost" href="index.html">Retour à l'accueil</a></div>
+<noscript><p class="tips-box">Cette page nécessite JavaScript. Vous pouvez aussi nous appeler au {TEL}.</p></noscript>
+</div></div></section>"""
+
+# ---------- GUIDE DES MATÉRIAUX
+def mat(title,life,lifelabel,pros,cons,who,care):
+    li=lambda xs,c='': ''.join(f'<li{c}>{x}</li>' for x in xs)
+    return f'<article><h3>{title}</h3><p class="life"><small>{lifelabel}</small>{life}</p><h4>Avantages</h4><ul>{li(pros)}</ul><h4>Points d\'attention</h4><ul>{li(cons," class=\"con\"")}</ul><h4>Pour qui ?</h4><p>{who}</p><h4>Entretien</h4><p>{care}</p></article>'
+mats=''.join([
+ mat('Les tuiles','50 à 100 ans','Durée de vie indicative',['Très durables, notamment en terre cuite','Large choix de formes et de couleurs','Bonne tenue dans le temps et bon rendu traditionnel'],['Poids important : la charpente doit pouvoir le supporter','Mousses et lichens à traiter régulièrement'],'Maisons traditionnelles et habitations qui recherchent un aspect classique et durable.','Démoussage régulier et remplacement des tuiles cassées ou déplacées.'),
+ mat('Les ardoises','75 ans et plus','Durée de vie indicative',['Très longue durée de vie pour l\'ardoise naturelle','Finition élégante et matériau léger','Excellente étanchéité quand la pose est soignée'],['Budget plus élevé','Pose délicate, à confier à un professionnel expérimenté'],'Bâtiments anciens ou de caractère, secteurs protégés et projets qui privilégient la pérennité.','Contrôle périodique des fixations et remplacement des ardoises abîmées.'),
+ mat('Le bac acier','30 à 50 ans','Durée de vie indicative',['Léger et rapide à poser','Bon rapport qualité-prix','Adapté aux toitures à faible pente'],['Aspect plus moderne ou industriel','Bruit de pluie si l\'isolation n\'est pas adaptée'],'Annexes, garages, extensions, bâtiments professionnels ou agricoles et projets contemporains.','Contrôle des fixations et des joints, nettoyage ponctuel pour éviter les dépôts.'),
+])
+cmp_rows=[('Durée de vie indicative','50 à 100 ans','75 ans et plus','30 à 50 ans'),('Poids','Élevé','Léger','Très léger'),('Budget','Moyen à élevé','Élevé','Économique à moyen'),('Aspect','Traditionnel','Élégant, classique','Moderne, sobre'),('Idéal pour','Maisons traditionnelles','Bâti ancien, secteurs protégés','Annexes, extensions, bâtiments pros')]
+cmp_html='<div class="cmp-wrap"><table class="cmp"><thead><tr><th></th><th>Tuiles</th><th>Ardoises</th><th>Bac acier</th></tr></thead><tbody>'+''.join(f'<tr><th>{a}</th><td>{b}</td><td>{c}</td><td>{d}</td></tr>' for a,b,c,d in cmp_rows)+'</tbody></table></div>'
+guide=banner('Guide des matériaux de couverture','Tuiles, ardoises ou bac acier : comprendre les différences pour faire le bon choix.','Guide des matériaux')+f"""<section class="section"><div class="container"><div class="head"><p class="eyebrow">Les trois grands choix</p><h2>Comparer les matériaux</h2></div><div class="mat">{mats}</div></div></section>
+<section class="section alt"><div class="container"><div class="head"><p class="eyebrow">En un coup d'œil</p><h2>Tableau comparatif</h2></div>{cmp_html}<p class="guide-note">Les durées et appréciations sont données à titre indicatif : elles varient selon la qualité du matériau, la pose, l'exposition et l'entretien.</p></div></section>
+<section class="section"><div class="container"><div class="head"><p class="eyebrow">Bien choisir</p><h2>Les questions à se poser</h2></div><div class="choose">
+<div class="why"><span class="sico">{I['roof']}</span><div><h3>Le style de votre bâtiment</h3><p>Respectez l'aspect de votre habitation et les règles de votre commune (plan local d'urbanisme, secteurs protégés).</p></div></div>
+<div class="why"><span class="sico">{I['gable']}</span><div><h3>La pente et la charpente</h3><p>Certains matériaux sont plus lourds ou exigent une pente minimale : la charpente doit s'y prêter.</p></div></div>
+<div class="why"><span class="sico">{I['file']}</span><div><h3>Votre budget sur la durée</h3><p>Comparez le coût de départ avec la durée de vie et l'entretien nécessaire, pas seulement le prix à la pose.</p></div></div>
+<div class="why"><span class="sico">{I['shield']}</span><div><h3>Le confort et l'isolation</h3><p>Isolation thermique et phonique dépendent de l'ensemble de la toiture, pas seulement de la couverture.</p></div></div>
+</div></div></section>
+<section class="cta"><div class="container"><div><h2>Un doute sur le bon matériau ?</h2><p>Envoyez-nous des photos de votre toiture : nous vous conseillons gratuitement.</p></div><div class="cta-btns"><a href="devis.html" class="btn btn-light">Demander un devis</a><a href="rendez-vous.html" class="btn btn-ghost">Prendre rendez-vous</a></div></div></section>"""
+
 for fn,t,d,b in [
  ('index.html','Couvreur à Hautmont','P.A Couverture, couvreur à Hautmont : couverture, zinguerie, pignon et velux. Devis gratuit.',index),
  ('services.html','Services','Couverture, zinguerie, pignon et pose de velux à Hautmont et alentours.',services),
@@ -261,5 +343,8 @@ for fn,t,d,b in [
  ('zone-intervention.html',"Zone d'intervention","Zone d'intervention de P.A Couverture autour de Hautmont (59330) : vérifiez si nous intervenons dans votre commune.",zone),
  ('faq.html','Questions fréquentes',"Durée d'une réfection de toiture, fuites, aides, garantie décennale : les réponses à vos questions.",faq),
  ('urgence-fuite.html','Urgence fuite','Fuite de toiture à Hautmont : conseils pour limiter les dégâts et numéro pour nous appeler.',urg),
+ ('devis.html','Devis en ligne gratuit','Demandez un devis gratuit en ligne : décrivez vos travaux et envoyez des photos de votre toiture à P.A Couverture, Hautmont.',devis),
+ ('rendez-vous.html','Prendre rendez-vous','Prenez rendez-vous en ligne avec P.A Couverture pour une visite, un devis ou un contrôle de toiture.',rdv),
+ ('guide-materiaux.html','Guide des matériaux de couverture','Tuiles, ardoises ou bac acier : durée de vie, avantages et conseils pour choisir le bon matériau de toiture.',guide),
  ('contact.html','Contact','Contactez P.A Couverture pour un devis gratuit : 06 03 50 82 30.',contact)]:
     open(os.path.join(OUT,fn),'w').write(page(fn,t,d,b))
