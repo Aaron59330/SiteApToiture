@@ -75,7 +75,7 @@ def banner(h,p,crumb):
 
 cta='''<section class="cta"><div class="container"><div><h2>Un projet de toiture ?</h2><p>Décrivez-nous vos travaux, nous vous répondons rapidement avec un devis gratuit.</p></div><div class="cta-btns"><a href="devis.html" class="btn btn-light">Demander un devis</a><a href="tel:%s" class="btn btn-ghost">%s</a></div></div></section>''' % (TELH,TEL)
 
-ALT={'couverture':'Toiture en ardoises avec fenêtres de toit','zinguerie':'Gouttière en zinc posée sur une avancée de toit','pignon':'Pignon habillé d\'ardoises','velux':'Pose d\'une fenêtre de toit sur la charpente','entretien':'Toiture en tuiles avant et après démoussage','travaux-dinterieur':'Combles aménagés en cours de finition','petite-maconnerie':'Souche de cheminée en briques sur une toiture en tuiles'}
+ALT={'couverture':'Toiture en ardoises avec fenêtres de toit','zinguerie':'Chéneau en zinc posé le long d\'une toiture en tuiles','pignon':'Pignon habillé d\'ardoises','velux':'Pose d\'une fenêtre de toit sur la charpente','entretien':'Toiture en tuiles avant et après démoussage','travaux-dinterieur':'Combles aménagés en cours de finition','petite-maconnerie':'Souche de cheminée en briques sur une toiture en tuiles'}
 SERV=[
 ('roof','Couverture','Réfection et rénovation complète de votre toiture, quel que soit le matériau.',
  ['Dépose et pose de tuiles, ardoises, bac acier','Remplacement de tuiles cassées ou déplacées','Recherche et réparation de fuites','Pose d\'écran sous-toiture et liteaux','Traitement et nettoyage de toiture']),
