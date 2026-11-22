@@ -52,7 +52,7 @@ def page(fn,title,desc,body,hero=None):
 <div><h4>Navigation</h4>{''.join(f'<a href="{f}">{n}</a>' for f,n in PAGES)}</div>
 <div><h4>Contact</h4><a href="tel:{TELH}">{TEL}</a><a href="mailto:{MAIL}">{MAIL}</a><span>59330 Hautmont</span></div>
 </div>
-<div class="container legal"><span>© <span id="year"></span> P.A Couverture – SIRET 000 000 000 00000</span><a href="/admin" class="adm-link" data-noedit>Administration</a></div>
+<div class="container legal"><span>© <span id="year"></span> P.A Couverture – SIRET 000 000 000 00000</span><span class="legal-links"><a href="mentions-legales.html">Mentions légales</a><a href="confidentialite.html">Confidentialité</a><a href="/admin" class="adm-link" data-noedit>Administration</a></span></div>
 </footer>
 <script src="script.js"></script>
 </body>
@@ -127,13 +127,47 @@ contact=banner('Contact et devis gratuit','Décrivez votre projet, nous vous ré
 <label>E-mail<input type="email" name="email" required></label>
 <label>Type de travaux<select name="type"><option>Couverture</option><option>Zinguerie</option><option>Pignon</option><option>Velux</option><option>Réparation / fuite</option><option>Autre</option></select></label>
 <label>Votre projet<textarea name="message" rows="5"></textarea></label>
-<button class="btn" type="submit">Envoyer la demande</button>
+<p class="fnote">Les informations saisies servent uniquement à répondre à votre demande. <a href="confidentialite.html">En savoir plus</a></p><button class="btn" type="submit">Envoyer la demande</button>
 <p class="ok" hidden>Votre messagerie va s'ouvrir pour envoyer la demande.</p></form></div></section>'''
+
+
+TODO='[à compléter]'
+def doc(title, intro, blocks, crumb):
+    out=''
+    for h,items in blocks:
+        out+=f'<h3>{h}</h3>'
+        for it in items:
+            if isinstance(it,list): out+='<ul>'+''.join(f'<li>{x}</li>' for x in it)+'</ul>'
+            else: out+=f'<p>{it}</p>'
+    return banner(title,intro,crumb)+f'<section class="section"><div class="container"><div class="prose">{out}<p class="upd">Dernière mise à jour : novembre 2026</p></div></div></section>'
+
+mentions=doc('Mentions légales','Informations légales relatives au site et à son éditeur.',[
+ ('Éditeur du site',[
+  ['Nom commercial : P.A Couverture','Forme juridique : '+TODO,'SIRET : 000 000 000 00000','Adresse : 59330 Hautmont ('+TODO+' : numéro et rue)','Téléphone : '+TEL,'E-mail : '+MAIL,'N° de TVA intracommunautaire : '+TODO+' (si applicable)']]),
+ ('Directeur de la publication',['Le directeur de la publication est '+TODO+'.']),
+ ('Hébergeur',['Le site est hébergé par '+TODO+' (nom, adresse et téléphone de l\'hébergeur).']),
+ ('Assurance',['Garantie décennale souscrite auprès de '+TODO+' (nom et coordonnées de l\'assureur), valable pour les travaux réalisés en France métropolitaine.']),
+ ('Médiation de la consommation',['Conformément à la réglementation, en cas de litige non résolu avec un client particulier, celui-ci peut recourir gratuitement à un médiateur de la consommation : '+TODO+' (nom et coordonnées du médiateur).']),
+ ('Propriété intellectuelle',['L\'ensemble des contenus du site (textes, photographies, logo, éléments graphiques) est la propriété de P.A Couverture, sauf mention contraire. Toute reproduction, représentation ou réutilisation, totale ou partielle, sans autorisation écrite préalable est interdite.']),
+ ('Responsabilité',['Les informations présentées sur ce site sont données à titre indicatif. P.A Couverture s\'efforce de les maintenir exactes et à jour, mais ne saurait être tenue responsable d\'une erreur ou d\'une omission. Seul un devis signé engage l\'entreprise.','Le site peut contenir des liens vers des sites tiers dont P.A Couverture n\'a pas la maîtrise et dont elle ne peut garantir le contenu.']),
+ ('Droit applicable',['Le présent site est soumis au droit français. En cas de litige, les tribunaux français sont seuls compétents.']),
+],'Mentions légales')
+
+confid=doc('Politique de confidentialité','Comment vos données personnelles sont utilisées et protégées.',[
+ ('Responsable du traitement',['P.A Couverture, 59330 Hautmont, joignable à l\'adresse '+MAIL+'.']),
+ ('Données collectées',['Lorsque vous utilisez le formulaire de demande de devis, nous collectons les informations que vous saisissez : nom, numéro de téléphone, adresse e-mail, type de travaux et message.']),
+ ('Finalité et base légale',['Ces données sont utilisées uniquement pour répondre à votre demande de devis et vous contacter à ce sujet (mesures précontractuelles prises à votre demande). Elles ne sont ni vendues, ni cédées à des tiers à des fins commerciales.']),
+ ('Durée de conservation',['Vos données sont conservées le temps nécessaire au traitement de votre demande, puis au maximum 3 ans après notre dernier échange, sauf obligation légale de conservation plus longue (par exemple en cas de contrat signé).']),
+ ('Vos droits',['Conformément au RGPD, vous disposez d\'un droit d\'accès, de rectification, d\'effacement, d\'opposition, de limitation et de portabilité de vos données. Pour les exercer, écrivez à '+MAIL+'.','Si vous estimez, après nous avoir contactés, que vos droits ne sont pas respectés, vous pouvez introduire une réclamation auprès de la CNIL (www.cnil.fr).']),
+ ('Cookies et polices',['Ce site n\'utilise aucun cookie publicitaire ni outil de mesure d\'audience. Un cookie technique strictement nécessaire n\'est déposé que pour la session de l\'administrateur du site.','Les polices de caractères sont chargées depuis le service Google Fonts, ce qui peut transmettre votre adresse IP à Google lors de l\'affichage des pages.']),
+],'Confidentialité')
 
 for fn,t,d,b in [
  ('index.html','Couvreur à Hautmont','P.A Couverture, couvreur à Hautmont : couverture, zinguerie, pignon et velux. Devis gratuit.',index),
  ('services.html','Services','Couverture, zinguerie, pignon et pose de velux à Hautmont et alentours.',services),
  ('realisations.html','Réalisations','Découvrez les chantiers de toiture réalisés par P.A Couverture.',real),
  ('a-propos.html','À propos','P.A Couverture, artisan couvreur à Hautmont (59330).',about),
+ ('mentions-legales.html','Mentions légales','Mentions légales du site P.A Couverture.',mentions),
+ ('confidentialite.html','Confidentialité','Politique de confidentialité du site P.A Couverture.',confid),
  ('contact.html','Contact','Contactez P.A Couverture pour un devis gratuit : 06 03 50 82 30.',contact)]:
     open(os.path.join(OUT,fn),'w').write(page(fn,t,d,b))
