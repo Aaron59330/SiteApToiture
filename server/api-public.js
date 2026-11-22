@@ -11,7 +11,7 @@ const stats = require('./stats');
 const { availability, addDays } = require('./booking');
 
 const router = express.Router();
-const WORK = ['Couverture', 'Zinguerie', 'Pignon', 'Velux', 'Réparation de fuite', 'Autre'];
+const WORK = ['Couverture', 'Zinguerie', 'Pignon', 'Velux', 'Entretien de toiture', 'Réparation de fuite', 'Autre'];
 const KINDS = ['Visite sur place pour devis', 'Contrôle / diagnostic de toiture', 'Échange téléphonique'];
 
 const hits = new Map();

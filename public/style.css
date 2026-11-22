@@ -444,3 +444,6 @@ body[data-admin] .faq-q{cursor:text}
 .visit-note{display:flex;gap:20px;align-items:flex-start;background:rgba(56,109,185,.12);border:1px solid var(--line);border-left:4px solid var(--red);padding:22px 24px;margin-bottom:26px}
 .visit-note h3{font-size:1rem;margin-bottom:6px}.visit-note p{color:var(--muted);font-size:.95rem}
 .done-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:10px}
+
+/* cartes de métiers : 5 par ligne si la place le permet */
+.grid4{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
