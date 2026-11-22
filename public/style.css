@@ -447,3 +447,7 @@ body[data-admin] .faq-q{cursor:text}
 
 /* cartes de métiers : 5 par ligne si la place le permet */
 .grid4{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+
+.grid-svc{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+@media(max-width:960px){.grid-svc{grid-template-columns:1fr 1fr}}
+@media(max-width:620px){.grid-svc{grid-template-columns:1fr}}

@@ -84,7 +84,7 @@ if (form) {
   if (document.body.hasAttribute('data-admin')) return;
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
 
-  const groups = '.head, .steps > *, .tips > *, .counters-grid > *, .faq-item, .chips, .urgent, .map, .grid4 > *, .grid3 > *, .grid2 > *, .gallery > *, .srv > *, .two > *, .crow, .cta .container > *, .fgrid > *, .section .container > .lead2';
+  const groups = '.head, .steps > *, .tips > *, .counters-grid > *, .faq-item, .chips, .urgent, .map, .grid4 > *, .grid-svc > *, .grid3 > *, .grid2 > *, .gallery > *, .srv > *, .two > *, .crow, .cta .container > *, .fgrid > *, .section .container > .lead2';
   const targets = Array.from(document.querySelectorAll(groups)).filter(el => !el.closest('.hero, .banner'));
   const io = new IntersectionObserver(entries => {
     entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });

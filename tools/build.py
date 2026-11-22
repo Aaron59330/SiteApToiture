@@ -1,4 +1,5 @@
-import os
+import os, unicodedata
+def slugify(t): return ''.join(c for c in unicodedata.normalize('NFD',t.lower()) if unicodedata.category(c)!='Mn').replace("'",'').replace(' ','-')
 OUT=os.path.join(os.path.dirname(os.path.abspath(__file__)),'..','public')
 TEL='06 03 50 82 30'; TELH='+33603508230'; MAIL='pro.ap.couverture@gmail.com'
 
@@ -8,6 +9,8 @@ I={
  'zinc':ic('<path d="M3 7h18v3H3z"/><path d="M6 10v8a2 2 0 0 0 2 2h0"/><path d="M18 10v6"/><path d="M18 19v.01"/>'),
  'gable':ic('<path d="M12 3 4 12v9h16v-9z"/><path d="M12 3v18"/><path d="M4 12h16"/>'),
  'brush':ic('<path d="M14 4l6 6-8 8H6v-6z"/><path d="M4 21l2-3"/><path d="M12 6l6 6"/>'),
+ 'interior':ic('<path d="M4 21V4h16v17"/><path d="M4 21h16"/><path d="M9 21v-7h6v7"/><path d="M8 8h8"/>'),
+ 'brick':ic('<rect x="3" y="5" width="18" height="14"/><path d="M3 10h18M3 15h18M9 5v5M15 10v5M9 15v4"/>'),
  'velux':ic('<path d="M3 18 9 6h12l-6 12z"/><path d="m6 12 12 0"/>'),
  'phone':ic('<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/>',22),
  'mail':ic('<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>',22),
@@ -55,7 +58,7 @@ def page(fn,title,desc,body,hero=None):
 <footer class="footer">
 <div class="container fgrid">
 <div><a href="index.html" class="logo"><img src="images/mascotte.png" alt="" width="59" height="34"><span>P.A <b>COUVERTURE</b></span></a>
-<p>Couverture, zinguerie, pignon, velux et entretien de toiture.<br>Artisan couvreur à Hautmont.</p></div>
+<p>Couverture, zinguerie, pignon, velux, entretien, travaux d'intérieur et petite maçonnerie.<br>Artisan couvreur à Hautmont.</p></div>
 <div><h4>Navigation</h4>{''.join(f'<a href="{f}">{n}</a>' for f,n in PAGES)}</div>
 <div><h4>Ressources</h4><a href="devis.html">Devis en ligne</a><a href="rendez-vous.html">Prendre rendez-vous</a><a href="guide-materiaux.html">Guide des matériaux</a><a href="urgence-fuite.html">Urgence fuite</a></div>
 <div><h4>Contact</h4><a href="tel:{TELH}">{TEL}</a><a href="mailto:{MAIL}">{MAIL}</a><span>59330 Hautmont</span></div>
@@ -82,29 +85,32 @@ SERV=[
 ('velux','Velux','Fourniture et pose de fenêtres de toit pour apporter lumière et volume à vos combles.',
  ['Pose de fenêtres de toit neuves','Remplacement de velux existants','Raccords d\'étanchéité soignés','Habillage intérieur et finitions']),
 ('brush','Entretien','Entretien régulier de votre toiture pour prolonger sa durée de vie et éviter les mauvaises surprises.',
- ['Démoussage et nettoyage de toiture','Traitement anti-mousse et hydrofuge','Peinture de toiture','Ramonage de conduits de cheminée','Nettoyage de gouttières et de chéneaux','Contrôle de l\'état de la toiture']),
+ ['Démoussage et nettoyage de toiture','Traitement anti-mousse et hydrofuge','Peinture de toiture','Ramonage de conduits de cheminée','Nettoyage de gouttières et de chéneaux','Contrôle de l\'état de la toiture']),('interior','Travaux d\'intérieur','Des travaux d\'intérieur pour compléter votre chantier et remettre votre habitation en état.',
+ ['Finitions et habillage intérieur','Reprise de plafonds et de murs après une fuite','Travaux de rénovation intérieure','Remise en état après intervention']),
+('brick','Petite maçonnerie','De petits travaux de maçonnerie, en complément de la toiture ou de manière indépendante.',
+ ['Reprise de maçonnerie en haut de pignon','Réfection de souches de cheminée','Rejointoiement et petites reprises de murs','Scellements, appuis et solins maçonnés']),
 ]
 
 # ---------- INDEX
-cards=''.join(f'<a class="scard" href="services.html#{t.lower()}"><span class="sico">{I[k]}</span><h3>{t}</h3><p>{d}</p><span class="more">En savoir plus {I["arrow"]}</span></a>' for k,t,d,_ in SERV)
+cards=''.join(f'<a class="scard" href="services.html#{slugify(t)}"><span class="sico">{I[k]}</span><h3>{t}</h3><p>{d}</p><span class="more">En savoir plus {I["arrow"]}</span></a>' for k,t,d,_ in SERV)
 why=[('file','Devis gratuit','Un chiffrage clair et détaillé, sans engagement et sans surprise.'),
      ('user','Un interlocuteur unique','Vous échangez directement avec l\'artisan, du devis à la fin du chantier.'),
      ('shield','Garantie décennale','Vos travaux sont couverts par notre garantie décennale, pour construire en toute sérénité.'),
      ('check','Travail soigné','Des finitions propres et un chantier laissé net à la fin des travaux.')]
 whyh=''.join(f'<div class="why"><span class="sico">{I[k]}</span><div><h3>{t}</h3><p>{d}</p></div></div>' for k,t,d in why)
 index=f'''<section class="hero"><div class="container hero-in"><div class="hero-txt">
-<p class="eyebrow">Couverture · Zinguerie · Pignon · Velux · Entretien</p>
+<p class="eyebrow">Couverture · Zinguerie · Pignon · Velux · Entretien · Intérieur · Maçonnerie</p>
 <h1>Votre toiture<br>entre de bonnes mains.</h1>
 <p class="lead">P.A Couverture réalise la couverture, la zinguerie, les pignons et la pose de velux à Hautmont et dans les environs.</p>
 <div class="hero-btns"><a href="devis.html" class="btn">Demander un devis gratuit</a><a href="services.html" class="btn btn-ghost">Découvrir nos services</a></div><p class="hero-note">{I['shield']} Garantie décennale</p></div>
 <div class="hero-logo"><div class="logo-shine"><img src="images/logo.png" alt="Logo P.A Couverture et Zinguerie"></div></div></div></section>
 <section class="counters"><div class="container counters-grid">
-<div><strong class="count">5</strong><span>savoir-faire : couverture, zinguerie, pignon, velux, entretien</span></div>
+<div><strong class="count">7</strong><span>savoir-faire pour votre toiture et votre habitat</span></div>
 <div><strong class="count">10</strong><span>ans de garantie décennale</span></div>
 <div><strong class="count">100%</strong><span>de devis gratuits et sans engagement</span></div>
 <div><strong class="count">1</strong><span>seul interlocuteur, du devis à la fin du chantier</span></div>
 </div></section>
-<section class="section"><div class="container"><div class="head"><p class="eyebrow">Nos métiers</p><h2>Ce que nous faisons</h2></div><div class="grid4">{cards}</div></div></section>
+<section class="section"><div class="container"><div class="head"><p class="eyebrow">Nos métiers</p><h2>Ce que nous faisons</h2></div><div class="grid-svc">{cards}</div></div></section>
 <section class="section alt"><div class="container"><div class="head"><p class="eyebrow">Étape par étape</p><h2>Notre façon de travailler</h2></div>
 <ol class="steps">
 <li><span class="num">01</span><h3>Prise de contact</h3><p>Vous nous appelez ou remplissez le formulaire. Nous échangeons sur votre projet et vos besoins.</p></li>
@@ -121,19 +127,19 @@ sec=''
 for n,(k,t,d,l) in enumerate(SERV):
     lis=''.join(f'<li>{I["check"]}<span>{x}</span></li>' for x in l)
     rev=' rev' if n%2 else ''
-    sec+=f'<section class="section{" alt" if n%2 else ""}" id="{t.lower()}"><div class="container srv{rev}"><div class="srv-ico">{I[k].replace("width=\"28\" height=\"28\"","width=\"90\" height=\"90\"")}</div><div><p class="eyebrow">0{n+1}</p><h2>{t}</h2><p class="lead2">{d}</p><ul class="list">{lis}</ul><a class="btn" href="devis.html">Devis pour {t.lower()}</a></div></div></section>'
-services=banner('Nos services','Cinq savoir-faire pour une toiture complète, de la couverture à l\'entretien.','Services')+sec+cta
+    sec+=f'<section class="section{" alt" if n%2 else ""}" id="{slugify(t)}"><div class="container srv{rev}"><div class="srv-ico">{I[k].replace("width=\"28\" height=\"28\"","width=\"90\" height=\"90\"")}</div><div><p class="eyebrow">0{n+1}</p><h2>{t}</h2><p class="lead2">{d}</p><ul class="list">{lis}</ul><a class="btn" href="devis.html">Devis pour {t.lower()}</a></div></div></section>'
+services=banner('Nos services','Sept savoir-faire pour votre toiture et votre habitat, de la couverture à la petite maçonnerie.','Services')+sec+cta
 
 # ---------- REALISATIONS
 ph=lambda t:f'<figure class="shot"><div class="ph">{I["roof"].replace("width=\"28\" height=\"28\"","width=\"56\" height=\"56\"")}<span>Photo à venir</span></div><figcaption><b>{t}</b></figcaption></figure>'
-real=banner('Nos réalisations','Un aperçu de nos chantiers de couverture, zinguerie, pignon, velux et entretien.','Réalisations')+'<section class="section"><div class="container"><div class="gallery" id="gallery"></div></div></section>'+cta
+real=banner('Nos réalisations','Un aperçu de nos chantiers de couverture, zinguerie, pignon, velux, entretien, intérieur et maçonnerie.','Réalisations')+'<section class="section"><div class="container"><div class="gallery" id="gallery"></div></div></section>'+cta
 
 # ---------- A PROPOS
-infos=[('SIRET','000 000 000 00000'),('Activité','Couverture, zinguerie, pignon, velux, entretien de toiture'),('Garantie','Décennale'),('Zone','Hautmont (59330) et alentours'),('Contact',TEL)]
+infos=[('SIRET','000 000 000 00000'),('Activité','Couverture, zinguerie, pignon, velux, entretien, travaux d\'intérieur, petite maçonnerie'),('Garantie','Décennale'),('Zone','Hautmont (59330) et alentours'),('Contact',TEL)]
 inf=''.join(f'<div class="irow"><span>{a}</span><b>{b}</b></div>' for a,b in infos)
 about=banner('À propos','Une entreprise locale de couverture, à votre écoute.','À propos')+f'''<section class="section"><div class="container two"><div>
 <p class="eyebrow">Qui sommes-nous</p><h2>P.A Couverture, artisan couvreur</h2>
-<p class="para">Basée à Hautmont, P.A Couverture intervient auprès des particuliers et des professionnels pour tous les travaux de toiture : couverture, zinguerie, pignon, pose de velux et entretien (démoussage, ramonage, peinture).</p>
+<p class="para">Basée à Hautmont, P.A Couverture intervient auprès des particuliers et des professionnels pour tous les travaux de toiture : couverture, zinguerie, pignon, pose de velux et entretien (démoussage, ramonage, peinture). Nous réalisons aussi des travaux d'intérieur et de petite maçonnerie.</p>
 <p class="para">Notre approche est simple : un diagnostic honnête, un devis clair, des travaux réalisés dans les règles de l'art et un chantier laissé propre.</p>
 <a class="btn" href="contact.html">Nous contacter</a></div>
 <div class="panel"><h3>Informations</h3>{inf}</div></div></section>
@@ -152,7 +158,7 @@ contact=banner('Contact et devis gratuit','Décrivez votre projet, nous vous ré
 <form class="form" id="form"><h3>Écrivez-nous</h3><input type="hidden" name="source" value="contact"><div class="hp" aria-hidden="true"><label>Ne pas remplir<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
 <div class="frow"><label>Nom<input type="text" name="nom" required></label><label>Téléphone<input type="tel" name="tel" required></label></div>
 <label>E-mail<input type="email" name="email" required></label>
-<label>Type de travaux<select name="type"><option>Couverture</option><option>Zinguerie</option><option>Pignon</option><option>Velux</option><option>Entretien de toiture</option><option>Réparation / fuite</option><option>Urgence fuite</option><option>Autre</option></select></label>
+<label>Type de travaux<select name="type"><option>Couverture</option><option>Zinguerie</option><option>Pignon</option><option>Velux</option><option>Entretien de toiture</option><option>Travaux d'intérieur</option><option>Petite maçonnerie</option><option>Réparation / fuite</option><option>Urgence fuite</option><option>Autre</option></select></label>
 <label>Votre projet<textarea name="message" rows="5"></textarea></label>
 <p class="fnote">Les informations saisies servent uniquement à répondre à votre demande. <a href="confidentialite.html">En savoir plus</a></p><button class="btn" type="submit">Envoyer la demande</button>
 <p class="ok" hidden>Merci, votre message est envoyé. Nous vous répondons rapidement.</p><p class="wiz-err" hidden></p></form></div></section>'''
@@ -236,6 +242,7 @@ FAQ=[
 ("Faut-il une autorisation pour refaire ma toiture ou poser un velux ?","Cela dépend des travaux. Un changement de matériau, de couleur ou d'aspect, ou la création d'un velux, peut nécessiter une déclaration préalable en mairie, surtout en zone protégée. Renseignez-vous auprès de votre mairie : nous pouvons aussi vous conseiller."),
 ("À quelle fréquence faut-il faire vérifier sa toiture ?","Nous recommandons un contrôle régulier, ainsi qu'après un épisode de forte tempête ou de grêle. Repérer tôt une tuile déplacée, une mousse envahissante ou une gouttière bouchée évite des réparations bien plus coûteuses."),
 ("Proposez-vous l'entretien de toiture ?","Oui. Nous assurons le démoussage et le nettoyage de toiture, le traitement anti-mousse et hydrofuge, la peinture de toiture, le ramonage et le nettoyage des gouttières. Un entretien régulier prolonge la durée de vie de la couverture et évite des réparations plus lourdes."),
+("Faites-vous aussi des travaux d'intérieur et de maçonnerie ?","Oui. En complément de la toiture, nous réalisons des travaux d'intérieur et de la petite maçonnerie : reprises de plafonds ou de murs, finitions, reprise de pignon ou de souche de cheminée, rejointoiement… Décrivez-nous votre besoin dans une demande de devis."),
 ("Dans quelles communes intervenez-vous ?","Nous intervenons à Hautmont et dans les communes alentours. Consultez notre page Zone d'intervention pour vérifier votre commune."),
 ]
 faq_items=''.join(f'<div class="faq-item"><div class="faq-q" role="button" tabindex="0" aria-expanded="false"><span>{q}</span><i class="chev"></i></div><div class="faq-a"><div><p>{a}</p></div></div></div>' for q,a in FAQ)
@@ -274,7 +281,7 @@ devis=banner('Devis en ligne gratuit','Décrivez votre projet et envoyez-nous de
 <ol class="wiz-steps"><li class="on">Travaux</li><li>Photos</li><li>Logement</li><li>Coordonnées</li></ol>
 <form class="wiz-form" id="devis-form" novalidate>
 <div class="wiz-pane on" data-step="1"><h2>Quels travaux envisagez-vous ?</h2><p>Choisissez le type de travaux.</p>
-<div class="opts">{radios('travaux',['Couverture','Zinguerie','Pignon','Velux','Entretien de toiture','Réparation de fuite','Autre'])}</div>
+<div class="opts">{radios('travaux',['Couverture','Zinguerie','Pignon','Velux','Entretien de toiture',"Travaux d'intérieur",'Petite maçonnerie','Réparation de fuite','Autre'])}</div>
 <label class="field">Décrivez votre projet (facultatif)<textarea name="message" rows="4" maxlength="2000"></textarea></label></div>
 <div class="wiz-pane" data-step="2"><h2>Ajoutez des photos de votre toiture</h2><p>Elles nous aident à préparer notre visite sur place et à comprendre votre projet.</p>
 <label class="drop" id="drop"><input type="file" accept="image/*" multiple id="photos"><b>Cliquez pour choisir vos photos</b><small>ou glissez-les ici · 6 photos maximum</small></label>
@@ -339,8 +346,8 @@ guide=banner('Guide des matériaux de couverture','Tuiles, ardoises ou bac acier
 <section class="cta"><div class="container"><div><h2>Un doute sur le bon matériau ?</h2><p>Envoyez-nous des photos de votre toiture : nous vous conseillons gratuitement.</p></div><div class="cta-btns"><a href="devis.html" class="btn btn-light">Demander un devis</a><a href="rendez-vous.html" class="btn btn-ghost">Prendre rendez-vous</a></div></div></section>"""
 
 for fn,t,d,b in [
- ('index.html','Couvreur à Hautmont','P.A Couverture, couvreur à Hautmont : couverture, zinguerie, pignon, velux et entretien de toiture. Devis gratuit.',index),
- ('services.html','Services','Couverture, zinguerie, pignon, pose de velux et entretien de toiture (démoussage, ramonage, peinture) à Hautmont et alentours.',services),
+ ('index.html','Couvreur à Hautmont','P.A Couverture, couvreur à Hautmont : couverture, zinguerie, pignon, velux, entretien, travaux d\'intérieur et petite maçonnerie. Devis gratuit.',index),
+ ('services.html','Services','Couverture, zinguerie, pignon, pose de velux, entretien de toiture (démoussage, ramonage, peinture), travaux d\'intérieur et petite maçonnerie à Hautmont et alentours.',services),
  ('realisations.html','Réalisations','Découvrez les chantiers de toiture réalisés par P.A Couverture.',real),
  ('a-propos.html','À propos','P.A Couverture, artisan couvreur à Hautmont (59330).',about),
  ('mentions-legales.html','Mentions légales','Mentions légales du site P.A Couverture.',mentions),
