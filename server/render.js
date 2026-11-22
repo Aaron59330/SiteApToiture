@@ -119,4 +119,17 @@ function fillGallery($, items, admin) {
   g.html(html);
 }
 
-module.exports = { process, sanitize };
+// Données structurées pour Google (FAQ), générées à partir du contenu affiché
+function faqJsonLd($) {
+  const items = [];
+  $('.faq-item').each((_, el) => {
+    const q = $(el).find('.faq-q span').first().text().replace(/\s+/g, ' ').trim();
+    const a = $(el).find('.faq-a').text().replace(/\s+/g, ' ').trim();
+    if (q && a) items.push({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } });
+  });
+  if (!items.length) return;
+  const json = JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: items }).replace(/</g, '\\u003c');
+  $('head').append('<script type="application/ld+json">' + json + '</script>');
+}
+
+module.exports = { process, sanitize, faqJsonLd };

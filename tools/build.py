@@ -18,7 +18,9 @@ I={
  'shield':ic('<path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"/><path d="m9 12 2 2 4-4"/>'),
  'user':ic('<circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/>'),
 }
-PAGES=[('index.html','Accueil'),('services.html','Services'),('realisations.html','Réalisations'),('a-propos.html','À propos'),('contact.html','Contact')]
+PAGES=[('index.html','Accueil'),('services.html','Services'),('realisations.html','Réalisations'),('zone-intervention.html',"Zone d'intervention"),('faq.html','FAQ'),('a-propos.html','À propos'),('contact.html','Contact')]
+SUN='<svg class="sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>'
+MOON='<svg class="moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></svg>'
 
 def page(fn,title,desc,body,hero=None):
     nav=''.join(f'<a href="{f}"{" class=\"active\"" if f==fn else ""}>{n}</a>' for f,n in PAGES[:-1])
@@ -29,17 +31,19 @@ def page(fn,title,desc,body,hero=None):
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{title} | P.A Couverture – Couvreur à Hautmont</title>
 <meta name="description" content="{desc}">
+<script src="theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Barlow:wght@400;500;600&display=swap">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="topbar"><div class="container"><span>{I['pin'].replace('width="22" height="22"','width="15" height="15"')} Hautmont (59330) et alentours</span><a href="tel:{TELH}">{I['phone'].replace('width="22" height="22"','width="15" height="15"')} {TEL}</a></div></div>
+<div class="loader" aria-hidden="true"><div class="loader-in"><img src="images/mascotte.png" alt="" width="118" height="68"><span class="loader-bar"></span></div></div>
+<div class="topbar"><div class="container"><span class="loc">{I['pin'].replace('width="22" height="22"','width="15" height="15"')} Hautmont (59330) et alentours</span><span class="tb-right"><a class="urg" href="urgence-fuite.html"><i class="dot"></i>Urgence fuite</a><a href="tel:{TELH}">{I['phone'].replace('width="22" height="22"','width="15" height="15"')} {TEL}</a></span></div></div>
 <header class="header">
 <div class="container nav">
 <a href="index.html" class="logo" aria-label="P.A Couverture, accueil"><img src="images/mascotte.png" alt="" width="59" height="34"><span>P.A <b>COUVERTURE</b></span></a>
 <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false"><span></span><span></span><span></span></button>
-<nav class="menu">{nav}<a href="contact.html" class="btn btn-sm{' active' if fn=='contact.html' else ''}">Devis gratuit</a></nav>
+<nav class="menu">{nav}<button class="theme-toggle" type="button" aria-label="Basculer entre mode clair et mode sombre" title="Mode clair / sombre">{SUN}{MOON}</button><a href="contact.html" class="btn btn-sm{' active' if fn=='contact.html' else ''}">Devis gratuit</a></nav>
 </div>
 </header>
 <main>
@@ -49,7 +53,7 @@ def page(fn,title,desc,body,hero=None):
 <div class="container fgrid">
 <div><a href="index.html" class="logo"><img src="images/mascotte.png" alt="" width="59" height="34"><span>P.A <b>COUVERTURE</b></span></a>
 <p>Couverture, zinguerie, pignon et velux.<br>Artisan couvreur à Hautmont.</p></div>
-<div><h4>Navigation</h4>{''.join(f'<a href="{f}">{n}</a>' for f,n in PAGES)}</div>
+<div><h4>Navigation</h4>{''.join(f'<a href="{f}">{n}</a>' for f,n in PAGES+[('urgence-fuite.html','Urgence fuite')])}</div>
 <div><h4>Contact</h4><a href="tel:{TELH}">{TEL}</a><a href="mailto:{MAIL}">{MAIL}</a><span>59330 Hautmont</span></div>
 </div>
 <div class="container legal"><span>© <span id="year"></span> P.A Couverture – SIRET 000 000 000 00000</span><span class="legal-links"><a href="mentions-legales.html">Mentions légales</a><a href="confidentialite.html">Confidentialité</a><a href="/admin" class="adm-link" data-noedit>Administration</a></span></div>
@@ -87,8 +91,21 @@ index=f'''<section class="hero"><div class="container hero-in"><div class="hero-
 <p class="lead">P.A Couverture réalise la couverture, la zinguerie, les pignons et la pose de velux à Hautmont et dans les environs.</p>
 <div class="hero-btns"><a href="contact.html" class="btn">Demander un devis gratuit</a><a href="services.html" class="btn btn-ghost">Découvrir nos services</a></div><p class="hero-note">{I['shield']} Garantie décennale</p></div>
 <div class="hero-logo"><div class="logo-shine"><img src="images/logo.png" alt="Logo P.A Couverture et Zinguerie"></div></div></div></section>
+<section class="counters"><div class="container counters-grid">
+<div><strong class="count">4</strong><span>savoir-faire : couverture, zinguerie, pignon, velux</span></div>
+<div><strong class="count">10</strong><span>ans de garantie décennale</span></div>
+<div><strong class="count">100%</strong><span>de devis gratuits et sans engagement</span></div>
+<div><strong class="count">1</strong><span>seul interlocuteur, du devis à la fin du chantier</span></div>
+</div></section>
 <section class="section"><div class="container"><div class="head"><p class="eyebrow">Nos métiers</p><h2>Ce que nous faisons</h2></div><div class="grid4">{cards}</div></div></section>
-<section class="section alt"><div class="container"><div class="head"><p class="eyebrow">Notre engagement</p><h2>Pourquoi choisir P.A Couverture</h2></div><div class="grid2">{whyh}</div></div></section>
+<section class="section alt"><div class="container"><div class="head"><p class="eyebrow">Étape par étape</p><h2>Notre façon de travailler</h2></div>
+<ol class="steps">
+<li><span class="num">01</span><h3>Prise de contact</h3><p>Vous nous appelez ou remplissez le formulaire. Nous échangeons sur votre projet et vos besoins.</p></li>
+<li><span class="num">02</span><h3>Devis gratuit</h3><p>Nous étudions votre toiture, si besoin sur place, puis nous vous remettons un devis clair et détaillé.</p></li>
+<li><span class="num">03</span><h3>Travaux</h3><p>Une fois le devis accepté, nous réalisons les travaux dans les règles de l'art, en protégeant votre habitation.</p></li>
+<li><span class="num">04</span><h3>Suivi</h3><p>Chantier nettoyé, contrôle final et garantie décennale : nous restons disponibles après les travaux.</p></li>
+</ol></div></section>
+<section class="section"><div class="container"><div class="head"><p class="eyebrow">Notre engagement</p><h2>Pourquoi choisir P.A Couverture</h2></div><div class="grid2">{whyh}</div></div></section>
 {cta}'''
 
 # ---------- SERVICES
@@ -125,7 +142,7 @@ contact=banner('Contact et devis gratuit','Décrivez votre projet, nous vous ré
 <form class="form" id="form"><h3>Demande de devis</h3>
 <div class="frow"><label>Nom<input type="text" name="nom" required></label><label>Téléphone<input type="tel" name="tel" required></label></div>
 <label>E-mail<input type="email" name="email" required></label>
-<label>Type de travaux<select name="type"><option>Couverture</option><option>Zinguerie</option><option>Pignon</option><option>Velux</option><option>Réparation / fuite</option><option>Autre</option></select></label>
+<label>Type de travaux<select name="type"><option>Couverture</option><option>Zinguerie</option><option>Pignon</option><option>Velux</option><option>Réparation / fuite</option><option>Urgence fuite</option><option>Autre</option></select></label>
 <label>Votre projet<textarea name="message" rows="5"></textarea></label>
 <p class="fnote">Les informations saisies servent uniquement à répondre à votre demande. <a href="confidentialite.html">En savoir plus</a></p><button class="btn" type="submit">Envoyer la demande</button>
 <p class="ok" hidden>Votre messagerie va s'ouvrir pour envoyer la demande.</p></form></div></section>'''
@@ -162,6 +179,78 @@ confid=doc('Politique de confidentialité','Comment vos données personnelles so
  ('Cookies et polices',['Ce site n\'utilise aucun cookie publicitaire ni outil de mesure d\'audience. Un cookie technique strictement nécessaire n\'est déposé que pour la session de l\'administrateur du site.','Les polices de caractères sont chargées depuis le service Google Fonts, ce qui peut transmettre votre adresse IP à Google lors de l\'affichage des pages.']),
 ],'Confidentialité')
 
+
+# ---------- ZONE D'INTERVENTION
+# positions approximatives (lat, lon) : carte schématique
+TOWNS=[('Hautmont',50.2475,3.9245),('Maubeuge',50.2775,3.9733),('Louvroil',50.2700,3.9550),('Feignies',50.2989,3.9167),
+       ('Jeumont',50.2980,4.1010),('Boussois',50.2860,4.0100),('Aulnoye-Aymeries',50.1990,3.8330),('Bavay',50.2989,3.7919),
+       ('Berlaimont',50.2000,3.8250),('Avesnes-sur-Helpe',50.1214,3.9322)]
+def proj(lat,lon): return round((lon-3.55)*1000), round((50.40-lat)*1562)
+def slug(n): return n.lower().replace(' ','-')
+def mapsvg():
+    hx,hy=proj(TOWNS[0][1],TOWNS[0][2])
+    g=''.join(f'<path class="grid-l" d="M{x} 0V520"/>' for x in range(0,601,50))+''.join(f'<path class="grid-l" d="M0 {y}H600"/>' for y in range(0,521,50))
+    towns=''
+    for n,la,lo in TOWNS[1:]:
+        x,y=proj(la,lo)
+        pos={'Louvroil':'l','Berlaimont':'l','Boussois':'u','Jeumont':'l','Feignies':'u'}.get(n,'r')
+        anchor='end' if pos=='l' else 'start'
+        dx=-10 if pos=='l' else 10
+        dy=-8 if pos=='u' else 4
+        towns+=f'<g class="town" data-c="{slug(n)}"><circle cx="{x}" cy="{y}" r="5.5"/><text x="{x+dx}" y="{y+dy}" text-anchor="{anchor}">{n}</text></g>'
+    return (f'<svg viewBox="0 0 600 520" role="img" aria-label="Carte schématique de la zone d\'intervention autour de Hautmont">'
+            f'<rect class="land" x="0" y="0" width="600" height="520"/>{g}'
+            f'<circle class="ring" cx="{hx}" cy="{hy}" r="215"/>{towns}'
+            f'<g class="home"><circle class="pulse" cx="{hx}" cy="{hy}" r="14"/><circle class="core" cx="{hx}" cy="{hy}" r="9"/>'
+            f'<text x="{hx}" y="{hy+30}" text-anchor="middle">HAUTMONT</text></g></svg>')
+opts=''.join(f'<option value="{n}">' for n,_,_ in TOWNS)
+chips=''.join(f'<li data-c="{slug(n)}">{n}</li>' for n,_,_ in TOWNS)
+zone=banner("Zone d'intervention","Hautmont et les communes alentours : vérifiez en un instant si nous intervenons chez vous.","Zone d'intervention")+f"""<section class="section"><div class="container zone"><div>
+<p class="eyebrow">Où intervenons-nous ?</p><h2>Autour de Hautmont</h2>
+<p class="para">P.A Couverture intervient à Hautmont et dans les communes voisines. Entrez votre commune pour savoir si elle fait partie de notre zone habituelle.</p>
+<div class="zone-search"><label for="commune">Votre commune est-elle couverte ?</label><input id="commune" type="text" list="communes" placeholder="Ex : Maubeuge" autocomplete="off"><datalist id="communes">{opts}</datalist><p class="zs-res" id="zs-res" aria-live="polite"></p></div>
+<ul class="chips">{chips}</ul>
+<p class="para">Votre commune n'apparaît pas ? Contactez-nous : nous étudions toutes les demandes selon la nature et l'importance des travaux.</p>
+<a class="btn" href="contact.html">Nous contacter</a></div>
+<div class="map">{mapsvg()}<p class="cap">Carte schématique, positions approximatives.</p></div></div></section>"""+cta
+
+# ---------- FAQ
+FAQ=[
+("Combien de temps dure une réfection de toiture ?","La durée dépend de la surface, du matériau choisi, de la complexité de la toiture et de la météo. Pour une maison individuelle, comptez en général de quelques jours à une ou deux semaines. Un planning précis vous est communiqué avec le devis."),
+("Comment savoir si j'ai une fuite de toiture ?","Plusieurs signes doivent vous alerter : des taches ou auréoles au plafond ou sur les murs, de la peinture qui cloque, une odeur d'humidité dans les combles, des tuiles ou ardoises déplacées ou cassées, ou encore de l'eau qui déborde des gouttières. Dans le doute, mieux vaut faire contrôler la toiture rapidement."),
+("Que faire en cas de fuite urgente ?","Protégez vos biens, coupez l'électricité si l'eau est proche d'une installation, puis appelez-nous. Retrouvez tous les conseils sur notre page Urgence fuite."),
+("Le devis est-il gratuit ?","Oui, nos devis sont gratuits et sans engagement. Ils sont clairs et détaillés, pour que vous sachiez exactement ce qui est prévu avant de vous décider."),
+("Quels matériaux de couverture proposez-vous ?","Nous intervenons sur les couvertures en tuiles, en ardoises et en bac acier. Nous vous conseillons selon votre habitation, votre budget et les contraintes de votre commune."),
+("Quelles aides existent pour mes travaux ?","Selon la nature des travaux (notamment l'isolation de toiture) et votre situation, des aides peuvent exister : MaPrimeRénov', certificats d'économies d'énergie (CEE), éco-prêt à taux zéro, ou encore une TVA réduite (5,5 % ou 10 % selon les travaux). Les conditions et les montants évoluent régulièrement, et certaines aides dépendent de la certification de l'entreprise : renseignez-vous auprès de France Rénov' (france-renov.gouv.fr) avant de signer un devis."),
+("Quelle garantie avez-vous sur les travaux ?","Nous disposons d'une garantie décennale. Elle couvre pendant 10 ans, à compter de la réception des travaux, les dommages qui compromettent la solidité de l'ouvrage ou le rendent impropre à son usage."),
+("Faut-il une autorisation pour refaire ma toiture ou poser un velux ?","Cela dépend des travaux. Un changement de matériau, de couleur ou d'aspect, ou la création d'un velux, peut nécessiter une déclaration préalable en mairie, surtout en zone protégée. Renseignez-vous auprès de votre mairie : nous pouvons aussi vous conseiller."),
+("À quelle fréquence faut-il faire vérifier sa toiture ?","Nous recommandons un contrôle régulier, ainsi qu'après un épisode de forte tempête ou de grêle. Repérer tôt une tuile déplacée, une mousse envahissante ou une gouttière bouchée évite des réparations bien plus coûteuses."),
+("Dans quelles communes intervenez-vous ?","Nous intervenons à Hautmont et dans les communes alentours. Consultez notre page Zone d'intervention pour vérifier votre commune."),
+]
+faq_items=''.join(f'<div class="faq-item"><div class="faq-q" role="button" tabindex="0" aria-expanded="false"><span>{q}</span><i class="chev"></i></div><div class="faq-a"><div><p>{a}</p></div></div></div>' for q,a in FAQ)
+faq=banner('Questions fréquentes','Les réponses aux questions que se posent le plus souvent nos clients.','FAQ')+f'<section class="section"><div class="container"><div class="faq">{faq_items}</div></div></section>'+cta
+
+# ---------- URGENCE FUITE
+tips=[("Protégez les personnes et l'électricité","Si l'eau coule près d'une prise, d'un luminaire ou du tableau électrique, coupez le courant au disjoncteur. En cas de danger immédiat (plafond qui s'affaisse), éloignez-vous et appelez les secours : 18 ou 112."),
+ ("Limitez les dégâts","Placez seaux, bassines ou bâches sous la fuite, puis déplacez les meubles, tapis et objets fragiles hors de la zone touchée."),
+ ("Videz la poche d'eau","Si le plafond gonfle d'eau, percez-le d'un petit trou en son centre avec un tournevis, un récipient dessous, pour éviter qu'il ne s'effondre. À faire uniquement sans danger électrique."),
+ ("Ne montez pas sur le toit","Un toit mouillé est très glissant et les chutes sont graves. Laissez cette intervention à un professionnel équipé."),
+ ("Photographiez les dégâts","Prenez des photos du plafond, des murs et des biens abîmés : elles serviront de preuves pour votre assurance."),
+ ("Prévenez votre assureur","Déclarez le sinistre à votre assurance habitation dans les 5 jours ouvrés, en joignant vos photos.")]
+tips_html=''.join(f'<li><span class="num">{i+1}</span><h3>{t}</h3><p>{d}</p></li>' for i,(t,d) in enumerate(tips))
+urg=banner('Urgence fuite','Une fuite de toiture ? Gardez votre calme et suivez ces conseils en attendant notre passage.','Urgence fuite')+f"""<section class="section"><div class="container">
+<div class="urgent"><p class="lbl">Appelez-nous maintenant</p><a class="bigtel" href="tel:{TELH}">{TEL}</a><p>Précisez qu'il s'agit d'une fuite : nous organisons une intervention au plus vite, selon nos disponibilités.</p></div>
+</div></section>
+<section class="section alt"><div class="container"><div class="head"><p class="eyebrow">En attendant notre passage</p><h2>Les bons réflexes</h2></div><ol class="tips">{tips_html}</ol>
+<p class="warn">En cas de danger pour les personnes (effondrement, risque électrique, incendie), appelez immédiatement les secours : 18 ou 112.</p></div></section>
+<section class="section"><div class="container"><div class="head"><p class="eyebrow">Notre intervention</p><h2>Ce que nous faisons</h2></div>
+<ol class="steps">
+<li><span class="num">01</span><h3>Diagnostic</h3><p>Nous recherchons l'origine de la fuite pour traiter la cause et pas seulement les effets.</p></li>
+<li><span class="num">02</span><h3>Mise en sécurité</h3><p>Si nécessaire, nous protégeons provisoirement la zone touchée pour stopper les infiltrations.</p></li>
+<li><span class="num">03</span><h3>Réparation</h3><p>Nous réalisons une réparation durable : tuiles, ardoises, zinguerie, solins ou étanchéité.</p></li>
+<li><span class="num">04</span><h3>Contrôle</h3><p>Nous vérifions l'étanchéité et laissons le chantier propre.</p></li>
+</ol></div></section>"""+cta
+
 for fn,t,d,b in [
  ('index.html','Couvreur à Hautmont','P.A Couverture, couvreur à Hautmont : couverture, zinguerie, pignon et velux. Devis gratuit.',index),
  ('services.html','Services','Couverture, zinguerie, pignon et pose de velux à Hautmont et alentours.',services),
@@ -169,5 +258,8 @@ for fn,t,d,b in [
  ('a-propos.html','À propos','P.A Couverture, artisan couvreur à Hautmont (59330).',about),
  ('mentions-legales.html','Mentions légales','Mentions légales du site P.A Couverture.',mentions),
  ('confidentialite.html','Confidentialité','Politique de confidentialité du site P.A Couverture.',confid),
+ ('zone-intervention.html',"Zone d'intervention","Zone d'intervention de P.A Couverture autour de Hautmont (59330) : vérifiez si nous intervenons dans votre commune.",zone),
+ ('faq.html','Questions fréquentes',"Durée d'une réfection de toiture, fuites, aides, garantie décennale : les réponses à vos questions.",faq),
+ ('urgence-fuite.html','Urgence fuite','Fuite de toiture à Hautmont : conseils pour limiter les dégâts et numéro pour nous appeler.',urg),
  ('contact.html','Contact','Contactez P.A Couverture pour un devis gratuit : 06 03 50 82 30.',contact)]:
     open(os.path.join(OUT,fn),'w').write(page(fn,t,d,b))

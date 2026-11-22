@@ -6,7 +6,7 @@ const path = require('path');
 const crypto = require('crypto');
 const { UPLOADS, readJSON, writeJSON } = require('./store');
 const auth = require('./auth');
-const { process: processPage, sanitize } = require('./render');
+const { process: processPage, sanitize, faqJsonLd } = require('./render');
 
 const PUBLIC = path.join(__dirname, '..', 'public');
 const VIEWS = path.join(__dirname, 'views');
@@ -40,6 +40,7 @@ function sendPage(file) {
       admin, page: file, overrides: getOverrides(),
       gallery: file === 'realisations.html' ? getRealisations() : null,
     });
+    if (file === 'faq.html') faqJsonLd($);
     res.setHeader('Cache-Control', admin ? 'no-store' : 'no-cache');
     res.type('html').send($.html());
   };

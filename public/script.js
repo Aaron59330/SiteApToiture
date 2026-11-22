@@ -69,7 +69,7 @@ if (form) {
   if (document.body.hasAttribute('data-admin')) return;
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
 
-  const groups = '.head, .grid4 > *, .grid3 > *, .grid2 > *, .gallery > *, .srv > *, .two > *, .crow, .cta .container > *, .fgrid > *, .section .container > .lead2';
+  const groups = '.head, .steps > *, .tips > *, .counters-grid > *, .faq-item, .chips, .urgent, .map, .grid4 > *, .grid3 > *, .grid2 > *, .gallery > *, .srv > *, .two > *, .crow, .cta .container > *, .fgrid > *, .section .container > .lead2';
   const targets = Array.from(document.querySelectorAll(groups)).filter(el => !el.closest('.hero, .banner'));
   const io = new IntersectionObserver(entries => {
     entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
@@ -97,4 +97,101 @@ if (form) {
   copy.removeAttribute('data-edi');
   copy.removeAttribute('data-edi-orig');
   w.appendChild(copy);
+})();
+
+// ---------- Bascule clair / sombre
+(function () {
+  const btn = document.querySelector('.theme-toggle');
+  if (!btn) return;
+  btn.addEventListener('click', () => {
+    const root = document.documentElement;
+    const light = root.getAttribute('data-theme') !== 'light';
+    if (light) root.setAttribute('data-theme', 'light'); else root.removeAttribute('data-theme');
+    try { localStorage.setItem('pa-theme', light ? 'light' : 'dark'); } catch (e) {}
+  });
+})();
+
+// ---------- Écran de chargement
+(function () {
+  const loader = document.querySelector('.loader');
+  if (!loader) return;
+  const hide = () => {
+    loader.classList.add('done');
+    setTimeout(() => loader.remove(), 700);
+  };
+  const start = Date.now();
+  const go = () => setTimeout(hide, Math.max(0, 900 - (Date.now() - start)));
+  if (document.readyState === 'complete') go(); else window.addEventListener('load', go);
+})();
+
+// ---------- Compteurs animés (la valeur affichée dans la page sert de valeur finale)
+(function () {
+  const items = document.querySelectorAll('.count');
+  if (!items.length) return;
+  if (document.body.hasAttribute('data-admin')) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(en => {
+      if (!en.isIntersecting) return;
+      const el = en.target; io.unobserve(el);
+      const m = el.textContent.trim().match(/^(\D*)(\d+)(.*)$/);
+      if (!m) return;
+      const end = parseInt(m[2], 10), t0 = performance.now(), dur = 1400;
+      const step = t => {
+        const p = Math.min((t - t0) / dur, 1), e = 1 - Math.pow(1 - p, 3);
+        el.textContent = m[1] + Math.round(end * e) + m[3];
+        if (p < 1) requestAnimationFrame(step);
+      };
+      el.textContent = m[1] + '0' + m[3];
+      requestAnimationFrame(step);
+    });
+  }, { threshold: 0.6 });
+  items.forEach(el => io.observe(el));
+})();
+
+// ---------- FAQ (accordéon)
+(function () {
+  const items = document.querySelectorAll('.faq-item');
+  if (!items.length || document.body.hasAttribute('data-admin')) return;
+  document.body.classList.add('faq-js');
+  const toggle = it => {
+    const open = it.classList.toggle('open');
+    it.querySelector('.faq-q').setAttribute('aria-expanded', open);
+  };
+  items.forEach(it => {
+    const q = it.querySelector('.faq-q');
+    q.addEventListener('click', () => toggle(it));
+    q.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(it); } });
+  });
+  if (items[0]) toggle(items[0]);
+})();
+
+// ---------- Zone d'intervention : recherche de commune
+(function () {
+  const input = document.getElementById('commune');
+  const res = document.getElementById('zs-res');
+  if (!input || !res) return;
+  const norm = s => s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, ' ').trim();
+  const chips = Array.from(document.querySelectorAll('.chips li'));
+  const towns = Array.from(document.querySelectorAll('.map .town'));
+  const clear = () => { chips.forEach(c => c.classList.remove('hit')); towns.forEach(t => t.classList.remove('hit')); };
+  const run = () => {
+    clear();
+    const q = norm(input.value);
+    res.className = 'zs-res'; res.textContent = '';
+    if (q.length < 2) return;
+    const found = chips.find(c => norm(c.textContent) === q) || chips.find(c => norm(c.textContent).startsWith(q));
+    if (found) {
+      found.classList.add('hit');
+      const t = towns.find(x => x.dataset.c === found.dataset.c); if (t) t.classList.add('hit');
+      res.className = 'zs-res yes';
+      res.textContent = 'Oui, nous intervenons à ' + found.textContent.trim() + '.';
+    } else if (norm(input.value).length >= 4) {
+      res.className = 'zs-res no';
+      res.append('Cette commune n\'est pas dans notre liste habituelle, mais ');
+      const a = document.createElement('a'); a.href = 'contact.html'; a.textContent = 'contactez-nous';
+      res.append(a, ' : nous étudions toutes les demandes.');
+    }
+  };
+  input.addEventListener('input', run);
 })();
