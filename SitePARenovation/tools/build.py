@@ -77,7 +77,7 @@ def banner(h,p,crumb):
 cta='''<section class="cta"><div class="container"><div><h2>Un projet de rénovation ?</h2><p>Décrivez-nous vos travaux, nous vous répondons rapidement avec un devis gratuit.</p></div><div class="cta-btns"><a href="devis.html" class="btn btn-light">Demander un devis</a><a href="tel:%s" class="btn btn-ghost">%s</a></div></div></section>''' % (TELH,TEL)
 
 SIDE={'travaux-dinterieur':'Intérieur','espaces-verts':'Extérieur','petite-maconnerie':'Intérieur & extérieur','travaux-exterieurs':'Extérieur'}
-ALT={'travaux-dinterieur':'Combles aménagés en cours de finition','petite-maconnerie':'Souche de cheminée en briques sur une toiture en tuiles','travaux-exterieurs':'Toiture en ardoises avec fenêtres de toit'}
+ALT={'espaces-verts':'Jardin avec pelouse, massifs de lavande et plantes ornementales','travaux-dinterieur':'Combles aménagés en cours de finition','petite-maconnerie':'Souche de cheminée en briques sur une toiture en tuiles','travaux-exterieurs':'Toiture en ardoises avec fenêtres de toit'}
 def PHOTO(t,k):
     f=os.path.join(OUT,'images','services',slugify(t)+'.webp')
     if os.path.exists(f):
