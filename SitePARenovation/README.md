@@ -24,7 +24,7 @@ Connexion : `/admin` (lien « Administration » en bas de chaque page).
 
 - **Demandes de devis** (avec photos privées) et messages de contact
 - **Rendez-vous** : à confirmer au plus tard N jours avant la date (3 par défaut), avec alerte en cas de retard
-- **Avis**, **Annonce** (bandeau en haut du site), **Horaires** de réservation, **Attestation décennale** (PDF)
+- **Avis**, **Annonce** (bandeau en haut du site), **Horaires** de réservation
 - **Statistiques** sans cookie et **QR code** imprimable
 
 ## Hébergement

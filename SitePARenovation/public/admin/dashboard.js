@@ -28,7 +28,7 @@
   const todayStr = () => new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Paris' }).format(new Date());
   const daysBetween = (a, b) => Math.round((new Date(b + 'T12:00:00Z') - new Date(a + 'T12:00:00Z')) / 864e5);
 
-  const TABS = [['demandes', 'Demandes de devis'], ['rdv', 'Rendez-vous'], ['avis', 'Avis'], ['annonce', 'Annonce'], ['horaires', 'Horaires'], ['documents', 'Documents'], ['stats', 'Statistiques'], ['qr', 'QR code'], ['reglages', 'Réglages']];
+  const TABS = [['demandes', 'Demandes de devis'], ['rdv', 'Rendez-vous'], ['avis', 'Avis'], ['annonce', 'Annonce'], ['horaires', 'Horaires'], ['stats', 'Statistiques'], ['qr', 'QR code'], ['reglages', 'Réglages']];
   let current = 'demandes', info = {};
 
   // ---------- Demandes
@@ -267,7 +267,7 @@
   }
 
   // ---------- navigation
-  const VIEWS = { demandes, rdv, avis, annonce, horaires, documents, stats: statistiques, qr, reglages };
+  const VIEWS = { demandes, rdv, avis, annonce, horaires, stats: statistiques, qr, reglages };
   async function render() {
     const panel = $('panel'); panel.innerHTML = '';
     try { info = await api('/api/admin/info'); await VIEWS[current](panel); } catch (e) { msg(e.message, true); }

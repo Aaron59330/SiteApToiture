@@ -98,18 +98,17 @@ SERV=[
 cards=''.join(f'<a class="scard" href="services.html#{slugify(t)}"><span class="sico">{I[k]}</span><h3>{t}</h3><p>{d}</p><span class="more">En savoir plus {I["arrow"]}</span></a>' for k,t,d,_ in SERV)
 why=[('file','Devis gratuit','Un chiffrage clair et détaillé, sans engagement et sans surprise.'),
      ('user','Un interlocuteur unique','Vous échangez directement avec l\'artisan, du devis à la fin du chantier.'),
-     ('shield','Garantie décennale','Vos travaux sont couverts par notre garantie décennale, pour construire en toute sérénité.'),
      ('check','Travail soigné','Des finitions propres et un chantier laissé net à la fin des travaux.')]
 whyh=''.join(f'<div class="why"><span class="sico">{I[k]}</span><div><h3>{t}</h3><p>{d}</p></div></div>' for k,t,d in why)
 index=f'''<section class="hero"><div class="container hero-in"><div class="hero-txt">
 <p class="eyebrow">Rénovation &amp; bâtiment général</p>
 <h1>Tous vos travaux<br>de rénovation,<br>dedans et dehors.</h1>
 <p class="lead">PA Rénovation intervient en bâtiment général : travaux d'intérieur, entretien de vos espaces verts, petite maçonnerie et travaux extérieurs, à Hautmont et dans les environs.</p>
-<div class="hero-btns"><a href="devis.html" class="btn">Demander un devis gratuit</a><a href="services.html" class="btn btn-ghost">Découvrir nos services</a></div><p class="hero-note">{I['shield']} Garantie décennale</p></div>
+<div class="hero-btns"><a href="devis.html" class="btn">Demander un devis gratuit</a><a href="services.html" class="btn btn-ghost">Découvrir nos services</a></div></div>
 <div class="hero-logo"><div class="logo-shine"><img src="images/logo.png" alt="Logo PA Rénovation, intérieure et extérieure"></div></div></div></section>
 <section class="counters"><div class="container counters-grid">
 <div><strong class="count">4</strong><span>domaines : intérieur, espaces verts, maçonnerie, travaux extérieurs</span></div>
-<div><strong class="count">10</strong><span>ans de garantie décennale</span></div>
+<div><strong class="count">2</strong><span>univers : l'intérieur et l'extérieur de votre habitat</span></div>
 <div><strong class="count">100%</strong><span>de devis gratuits et sans engagement</span></div>
 <div><strong class="count">1</strong><span>seul interlocuteur, du devis à la fin du chantier</span></div>
 </div></section>
@@ -119,9 +118,9 @@ index=f'''<section class="hero"><div class="container hero-in"><div class="hero-
 <li><span class="num">01</span><h3>Prise de contact</h3><p>Vous nous appelez ou remplissez le formulaire. Nous échangeons sur votre projet et vos besoins.</p></li>
 <li><span class="num">02</span><h3>Devis gratuit</h3><p>Nous étudions votre projet, si besoin sur place, puis nous vous remettons un devis clair et détaillé.</p></li>
 <li><span class="num">03</span><h3>Travaux</h3><p>Une fois le devis accepté, nous réalisons les travaux dans les règles de l'art, en protégeant votre habitation.</p></li>
-<li><span class="num">04</span><h3>Suivi</h3><p>Chantier nettoyé, contrôle final et garantie décennale : nous restons disponibles après les travaux.</p></li>
+<li><span class="num">04</span><h3>Suivi</h3><p>Chantier nettoyé et contrôle final : nous restons disponibles après les travaux.</p></li>
 </ol></div></section>
-<section class="section"><div class="container"><div class="head"><p class="eyebrow">Notre engagement</p><h2>Pourquoi choisir PA Rénovation</h2></div><div class="grid2">{whyh}</div></div></section>
+<section class="section"><div class="container"><div class="head"><p class="eyebrow">Notre engagement</p><h2>Pourquoi choisir PA Rénovation</h2></div><div class="grid3">{whyh}</div></div></section>
 <section data-reviews></section>
 {cta}'''
 
@@ -138,7 +137,7 @@ ph=lambda t:f'<figure class="shot"><div class="ph">{I["roof"].replace("width=\"2
 real=banner('Nos réalisations','Un aperçu de nos chantiers de rénovation, à l\'intérieur comme à l\'extérieur.','Réalisations')+'<section class="section"><div class="container"><div class="gallery" id="gallery"></div></div></section>'+cta
 
 # ---------- A PROPOS
-infos=[('SIRET','000 000 000 00000'),('Activité','Rénovation et bâtiment général'),('Garantie','Décennale'),('Zone','Hautmont (59330) et alentours'),('Contact',TEL)]
+infos=[('SIRET','000 000 000 00000'),('Activité','Rénovation et bâtiment général'),('Zone','Hautmont (59330) et alentours'),('Contact',TEL)]
 inf=''.join(f'<div class="irow"><span>{a}</span><b>{b}</b></div>' for a,b in infos)
 about=banner('À propos','Une entreprise locale de rénovation, à votre écoute.','À propos')+f'''<section class="section"><div class="container two"><div>
 <p class="eyebrow">Qui sommes-nous</p><h2>PA Rénovation, artisan du bâtiment</h2>
@@ -146,8 +145,7 @@ about=banner('À propos','Une entreprise locale de rénovation, à votre écoute
 <p class="para">Notre approche est simple : un diagnostic honnête, un devis clair, des travaux réalisés dans les règles de l'art et un chantier laissé propre.</p>
 <a class="btn" href="contact.html">Nous contacter</a></div>
 <div class="panel"><h3>Informations</h3>{inf}</div></div></section>
-<section class="section alt"><div class="container"><div class="head"><p class="eyebrow">Nos valeurs</p><h2>Notre façon de travailler</h2></div><div class="grid2">{whyh}</div></div></section>
-<section class="section" data-needs-doc><div class="container"><div class="doc-card"><span class="sico">{I['file']}</span><div><h3>Attestation de garantie décennale</h3><p>Téléchargez notre attestation d'assurance en cours de validité.</p></div><a class="btn" href="/attestation-decennale.pdf" target="_blank" rel="noopener">Télécharger le PDF</a></div></div></section>'''+cta
+<section class="section alt"><div class="container"><div class="head"><p class="eyebrow">Nos valeurs</p><h2>Notre façon de travailler</h2></div><div class="grid3">{whyh}</div></div></section>'''+cta
 
 # ---------- CONTACT
 def row(k,l,v,h=None):
@@ -182,7 +180,6 @@ mentions=doc('Mentions légales','Informations légales relatives au site et à 
   ['Nom commercial : PA Rénovation','Forme juridique : '+TODO,'SIRET : 000 000 000 00000','Adresse : 59330 Hautmont ('+TODO+' : numéro et rue)','Téléphone : '+TEL,'E-mail : '+MAIL,'N° de TVA intracommunautaire : '+TODO+' (si applicable)']]),
  ('Directeur de la publication',['Le directeur de la publication est '+TODO+'.']),
  ('Hébergeur',['Le site est hébergé par '+TODO+' (nom, adresse et téléphone de l\'hébergeur).']),
- ('Assurance',['Garantie décennale souscrite auprès de '+TODO+' (nom et coordonnées de l\'assureur), valable pour les travaux réalisés en France métropolitaine.']),
  ('Médiation de la consommation',['Conformément à la réglementation, en cas de litige non résolu avec un client particulier, celui-ci peut recourir gratuitement à un médiateur de la consommation : '+TODO+' (nom et coordonnées du médiateur).']),
  ('Propriété intellectuelle',['L\'ensemble des contenus du site (textes, photographies, logo, éléments graphiques) est la propriété de PA Rénovation, sauf mention contraire. Toute reproduction, représentation ou réutilisation, totale ou partielle, sans autorisation écrite préalable est interdite.']),
  ('Responsabilité',['Les informations présentées sur ce site sont données à titre indicatif. PA Rénovation s\'efforce de les maintenir exactes et à jour, mais ne saurait être tenue responsable d\'une erreur ou d\'une omission. Seul un devis signé engage l\'entreprise.','Le site peut contenir des liens vers des sites tiers dont PA Rénovation n\'a pas la maîtrise et dont elle ne peut garantir le contenu.']),
@@ -243,7 +240,6 @@ FAQ=[
 ("Le devis est-il gratuit ?","Oui, nos devis sont gratuits et sans engagement. Par précaution, nous préférons venir voir le chantier sur place avant d'établir un devis précis : il est ainsi clair et détaillé, et vous savez exactement ce qui est prévu avant de vous décider."),
 ("Quels matériaux de couverture proposez-vous ?","Nous intervenons sur les couvertures en tuiles, en ardoises et en bac acier. Nous vous conseillons selon votre habitation, votre budget et les contraintes de votre commune."),
 ("Quelles aides existent pour mes travaux ?","Selon la nature des travaux (notamment l'isolation de toiture) et votre situation, des aides peuvent exister : MaPrimeRénov', certificats d'économies d'énergie (CEE), éco-prêt à taux zéro, ou encore une TVA réduite (5,5 % ou 10 % selon les travaux). Les conditions et les montants évoluent régulièrement, et certaines aides dépendent de la certification de l'entreprise : renseignez-vous auprès de France Rénov' (france-renov.gouv.fr) avant de signer un devis."),
-("Quelle garantie avez-vous sur les travaux ?","Nous disposons d'une garantie décennale. Elle couvre pendant 10 ans, à compter de la réception des travaux, les dommages qui compromettent la solidité de l'ouvrage ou le rendent impropre à son usage."),
 ("Faut-il une autorisation pour refaire ma toiture ou poser un velux ?","Cela dépend des travaux. Un changement de matériau, de couleur ou d'aspect, ou la création d'un velux, peut nécessiter une déclaration préalable en mairie, surtout en zone protégée. Renseignez-vous auprès de votre mairie : nous pouvons aussi vous conseiller."),
 ("À quelle fréquence faut-il faire vérifier sa toiture ?","Nous recommandons un contrôle régulier, ainsi qu'après un épisode de forte tempête ou de grêle. Repérer tôt une tuile déplacée, une mousse envahissante ou une gouttière bouchée évite des réparations bien plus coûteuses."),
 ("Proposez-vous l'entretien de toiture ?","Oui. Nous assurons le démoussage et le nettoyage de toiture, le traitement anti-mousse et hydrofuge, la peinture de toiture, le ramonage et le nettoyage des gouttières. Un entretien régulier prolonge la durée de vie de la couverture et évite des réparations plus lourdes."),
@@ -358,7 +354,7 @@ for fn,t,d,b in [
  ('mentions-legales.html','Mentions légales','Mentions légales du site PA Rénovation.',mentions),
  ('confidentialite.html','Confidentialité','Politique de confidentialité du site PA Rénovation.',confid),
  ('zone-intervention.html',"Zone d'intervention","Zone d'intervention de PA Rénovation autour de Hautmont (59330) : vérifiez si nous intervenons dans votre commune.",zone),
- ('faq.html','Questions fréquentes',"Travaux d'intérieur, espaces verts, toiture, aides, garantie décennale : les réponses à vos questions.",faq),
+ ('faq.html','Questions fréquentes',"Travaux d'intérieur, espaces verts, travaux extérieurs, aides : les réponses à vos questions.",faq),
  ('urgence-fuite.html','Urgence fuite','Fuite de toiture à Hautmont : conseils pour limiter les dégâts et numéro pour nous appeler.',urg),
  ('devis.html','Devis en ligne gratuit','Demandez un devis gratuit en ligne : décrivez vos travaux de rénovation et envoyez des photos à PA Rénovation, Hautmont.',devis),
  ('rendez-vous.html','Prendre rendez-vous','Prenez rendez-vous en ligne avec PA Rénovation pour une visite, un devis ou un diagnostic de chantier.',rdv),
