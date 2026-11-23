@@ -462,3 +462,6 @@ body[data-admin] .faq-q{cursor:text}
 .hero h1{font-size:clamp(2rem,3.5vw,3rem)}
 
 .grid-svc{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+
+.counters-grid{grid-template-columns:repeat(3,1fr)}
+@media(max-width:620px){.counters-grid{grid-template-columns:1fr}}
