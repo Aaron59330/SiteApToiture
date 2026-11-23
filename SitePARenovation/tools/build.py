@@ -48,7 +48,7 @@ def page(fn,title,desc,body,hero=None):
 <div class="topbar"><div class="container"><span class="loc">{I['pin'].replace('width="22" height="22"','width="15" height="15"')} Hautmont (59330) et alentours</span><span class="tb-right"><a href="tel:{TELH}">{I['phone'].replace('width="22" height="22"','width="15" height="15"')} {TEL}</a></span></div></div>
 <header class="header">
 <div class="container nav">
-<a href="index.html" class="logo" aria-label="PA Rénovation, accueil"><img src="images/mascotte.png" alt="" width="53" height="34"><span>PA <b>RÉNOVATION</b></span></a>
+<a href="index.html" class="logo" aria-label="PA Rénovation, accueil"><img src="images/mascotte.png" alt="" width="86" height="34"><span>PA <b>RÉNOVATION</b></span></a>
 <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false"><span></span><span></span><span></span></button>
 <nav class="menu">{nav}<button class="theme-toggle" type="button" aria-label="Basculer entre mode clair et mode sombre" title="Mode clair / sombre">{SUN}{MOON}</button><a href="devis.html" class="btn btn-sm{' active' if fn=='devis.html' else ''}">Devis gratuit</a></nav>
 </div>
@@ -58,7 +58,7 @@ def page(fn,title,desc,body,hero=None):
 </main>
 <footer class="footer">
 <div class="container fgrid">
-<div><a href="index.html" class="logo"><img src="images/mascotte.png" alt="" width="53" height="34"><span>PA <b>RÉNOVATION</b></span></a>
+<div><a href="index.html" class="logo"><img src="images/mascotte.png" alt="" width="86" height="34"><span>PA <b>RÉNOVATION</b></span></a>
 <p>Rénovation et bâtiment général : travaux d'intérieur, espaces verts, petite maçonnerie et travaux extérieurs.<br>Artisan à Hautmont.</p></div>
 <div><h4>Navigation</h4>{''.join(f'<a href="{f}">{n}</a>' for f,n in PAGES)}</div>
 <div><h4>Ressources</h4><a href="devis.html">Devis en ligne</a><a href="rendez-vous.html">Prendre rendez-vous</a><a href="guide-materiaux.html">Guide : matériaux de toiture</a></div>
