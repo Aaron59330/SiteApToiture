@@ -59,7 +59,7 @@ def page(fn,title,desc,body,hero=None):
 <footer class="footer">
 <div class="container fgrid">
 <div><a href="index.html" class="logo"><img src="images/mascotte.png" alt="" width="53" height="34"><span>PA <b>RÉNOVATION</b></span></a>
-<p>Rénovation intérieure et extérieure : travaux d'intérieur, espaces verts, petite maçonnerie et toiture.<br>Artisan à Hautmont.</p></div>
+<p>Rénovation et bâtiment général : travaux d'intérieur, espaces verts, petite maçonnerie et travaux extérieurs.<br>Artisan à Hautmont.</p></div>
 <div><h4>Navigation</h4>{''.join(f'<a href="{f}">{n}</a>' for f,n in PAGES)}</div>
 <div><h4>Ressources</h4><a href="devis.html">Devis en ligne</a><a href="rendez-vous.html">Prendre rendez-vous</a><a href="guide-materiaux.html">Guide : matériaux de toiture</a><a href="urgence-fuite.html">Urgence fuite</a></div>
 <div><h4>Contact</h4><a href="tel:{TELH}">{TEL}</a><a href="mailto:{MAIL}">{MAIL}</a><span>59330 Hautmont</span></div>
@@ -76,8 +76,8 @@ def banner(h,p,crumb):
 
 cta='''<section class="cta"><div class="container"><div><h2>Un projet de rénovation ?</h2><p>Décrivez-nous vos travaux, nous vous répondons rapidement avec un devis gratuit.</p></div><div class="cta-btns"><a href="devis.html" class="btn btn-light">Demander un devis</a><a href="tel:%s" class="btn btn-ghost">%s</a></div></div></section>''' % (TELH,TEL)
 
-SIDE={'travaux-dinterieur':'Intérieur','espaces-verts':'Extérieur','petite-maconnerie':'Intérieur & extérieur','toiture':'Extérieur'}
-ALT={'travaux-dinterieur':'Combles aménagés en cours de finition','petite-maconnerie':'Souche de cheminée en briques sur une toiture en tuiles','toiture':'Toiture en ardoises avec fenêtres de toit'}
+SIDE={'travaux-dinterieur':'Intérieur','espaces-verts':'Extérieur','petite-maconnerie':'Intérieur & extérieur','travaux-exterieurs':'Extérieur'}
+ALT={'travaux-dinterieur':'Combles aménagés en cours de finition','petite-maconnerie':'Souche de cheminée en briques sur une toiture en tuiles','travaux-exterieurs':'Toiture en ardoises avec fenêtres de toit'}
 def PHOTO(t,k):
     f=os.path.join(OUT,'images','services',slugify(t)+'.webp')
     if os.path.exists(f):
@@ -90,8 +90,8 @@ SERV=[
  ['Entretien de jardin et tonte','Taille de haies et d\'arbustes','Aménagement et création d\'espaces extérieurs','Nettoyage, débroussaillage et évacuation des déchets verts']),
 ('brick','Petite maçonnerie','De petits travaux de maçonnerie, à l\'intérieur comme à l\'extérieur.',
  ['Reprises de murs et rejointoiement','Enduits et finitions','Scellements, appuis et seuils','Petites réparations de maçonnerie']),
-('roof','Toiture','Des interventions de toiture, en complément de vos travaux de rénovation.',
- ['Réparation et rénovation de couverture','Zinguerie et gouttières','Pignons et fenêtres de toit (velux)','Entretien : démoussage, ramonage, peinture','Recherche et réparation de fuites']),
+('roof','Travaux extérieurs','Des travaux extérieurs pour protéger et valoriser votre habitation, toiture comprise.',
+ ['Toiture : réparation et rénovation de couverture','Zinguerie et gouttières','Pignons et fenêtres de toit (velux)','Entretien : démoussage, ramonage, peinture','Recherche et réparation de fuites']),
 ]
 
 # ---------- INDEX
@@ -102,13 +102,13 @@ why=[('file','Devis gratuit','Un chiffrage clair et détaillé, sans engagement 
      ('check','Travail soigné','Des finitions propres et un chantier laissé net à la fin des travaux.')]
 whyh=''.join(f'<div class="why"><span class="sico">{I[k]}</span><div><h3>{t}</h3><p>{d}</p></div></div>' for k,t,d in why)
 index=f'''<section class="hero"><div class="container hero-in"><div class="hero-txt">
-<p class="eyebrow">Rénovation intérieure &amp; extérieure</p>
+<p class="eyebrow">Rénovation &amp; bâtiment général</p>
 <h1>Tous vos travaux<br>de rénovation,<br>dedans et dehors.</h1>
-<p class="lead">PA Rénovation réalise vos travaux d'intérieur, l'entretien de vos espaces verts, la petite maçonnerie et des interventions de toiture, à Hautmont et dans les environs.</p>
+<p class="lead">PA Rénovation intervient en bâtiment général : travaux d'intérieur, entretien de vos espaces verts, petite maçonnerie et travaux extérieurs, à Hautmont et dans les environs.</p>
 <div class="hero-btns"><a href="devis.html" class="btn">Demander un devis gratuit</a><a href="services.html" class="btn btn-ghost">Découvrir nos services</a></div><p class="hero-note">{I['shield']} Garantie décennale</p></div>
 <div class="hero-logo"><div class="logo-shine"><img src="images/logo.png" alt="Logo PA Rénovation, intérieure et extérieure"></div></div></div></section>
 <section class="counters"><div class="container counters-grid">
-<div><strong class="count">4</strong><span>domaines : intérieur, espaces verts, maçonnerie, toiture</span></div>
+<div><strong class="count">4</strong><span>domaines : intérieur, espaces verts, maçonnerie, travaux extérieurs</span></div>
 <div><strong class="count">10</strong><span>ans de garantie décennale</span></div>
 <div><strong class="count">100%</strong><span>de devis gratuits et sans engagement</span></div>
 <div><strong class="count">1</strong><span>seul interlocuteur, du devis à la fin du chantier</span></div>
@@ -131,18 +131,18 @@ for n,(k,t,d,l) in enumerate(SERV):
     lis=''.join(f'<li>{I["check"]}<span>{x}</span></li>' for x in l)
     rev=' rev' if n%2 else ''
     sec+=f'<section class="section{" alt" if n%2 else ""}" id="{slugify(t)}"><div class="container srv{rev}">{PHOTO(t,k)}<div><p class="eyebrow">0{n+1} · {SIDE.get(slugify(t),"Extérieur")}</p><h2>{t}</h2><p class="lead2">{d}</p><ul class="list">{lis}</ul><a class="btn" href="devis.html">Devis pour {t.lower()}</a></div></div></section>'
-services=banner('Nos services','Rénovation intérieure et extérieure : de l\'aménagement de vos pièces à l\'entretien de vos espaces verts, sans oublier la toiture.','Services')+sec+cta
+services=banner('Nos services','Rénovation et bâtiment général : de l\'aménagement de vos pièces à l\'entretien de vos espaces verts, sans oublier les travaux extérieurs.','Services')+sec+cta
 
 # ---------- REALISATIONS
 ph=lambda t:f'<figure class="shot"><div class="ph">{I["roof"].replace("width=\"28\" height=\"28\"","width=\"56\" height=\"56\"")}<span>Photo à venir</span></div><figcaption><b>{t}</b></figcaption></figure>'
 real=banner('Nos réalisations','Un aperçu de nos chantiers de rénovation, à l\'intérieur comme à l\'extérieur.','Réalisations')+'<section class="section"><div class="container"><div class="gallery" id="gallery"></div></div></section>'+cta
 
 # ---------- A PROPOS
-infos=[('SIRET','000 000 000 00000'),('Activité','Rénovation intérieure et extérieure'),('Garantie','Décennale'),('Zone','Hautmont (59330) et alentours'),('Contact',TEL)]
+infos=[('SIRET','000 000 000 00000'),('Activité','Rénovation et bâtiment général'),('Garantie','Décennale'),('Zone','Hautmont (59330) et alentours'),('Contact',TEL)]
 inf=''.join(f'<div class="irow"><span>{a}</span><b>{b}</b></div>' for a,b in infos)
 about=banner('À propos','Une entreprise locale de rénovation, à votre écoute.','À propos')+f'''<section class="section"><div class="container two"><div>
-<p class="eyebrow">Qui sommes-nous</p><h2>PA Rénovation, artisan de la rénovation</h2>
-<p class="para">Basée à Hautmont, PA Rénovation intervient auprès des particuliers et des professionnels pour tous vos travaux de rénovation, à l'intérieur comme à l'extérieur : travaux d'intérieur, entretien des espaces verts, petite maçonnerie et interventions de toiture (couverture, zinguerie, entretien).</p>
+<p class="eyebrow">Qui sommes-nous</p><h2>PA Rénovation, artisan du bâtiment</h2>
+<p class="para">Basée à Hautmont, PA Rénovation intervient auprès des particuliers et des professionnels pour tous vos travaux de rénovation et de bâtiment général, à l'intérieur comme à l'extérieur : travaux d'intérieur, entretien des espaces verts, petite maçonnerie et travaux extérieurs (toiture, zinguerie, entretien).</p>
 <p class="para">Notre approche est simple : un diagnostic honnête, un devis clair, des travaux réalisés dans les règles de l'art et un chantier laissé propre.</p>
 <a class="btn" href="contact.html">Nous contacter</a></div>
 <div class="panel"><h3>Informations</h3>{inf}</div></div></section>
@@ -161,7 +161,7 @@ contact=banner('Contact et devis gratuit','Décrivez votre projet, nous vous ré
 <form class="form" id="form"><h3>Écrivez-nous</h3><input type="hidden" name="source" value="contact"><div class="hp" aria-hidden="true"><label>Ne pas remplir<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
 <div class="frow"><label>Nom<input type="text" name="nom" required></label><label>Téléphone<input type="tel" name="tel" required></label></div>
 <label>E-mail<input type="email" name="email" required></label>
-<label>Type de travaux<select name="type"><option>Travaux d'intérieur</option><option>Espaces verts</option><option>Petite maçonnerie</option><option>Toiture</option><option>Rénovation générale</option><option>Réparation / fuite</option><option>Urgence fuite</option><option>Autre</option></select></label>
+<label>Type de travaux<select name="type"><option>Travaux d'intérieur</option><option>Espaces verts</option><option>Petite maçonnerie</option><option>Travaux extérieurs</option><option>Bâtiment général</option><option>Réparation / fuite</option><option>Urgence fuite</option><option>Autre</option></select></label>
 <label>Votre projet<textarea name="message" rows="5"></textarea></label>
 <p class="fnote">Les informations saisies servent uniquement à répondre à votre demande. <a href="confidentialite.html">En savoir plus</a></p><button class="btn" type="submit">Envoyer la demande</button>
 <p class="ok" hidden>Merci, votre message est envoyé. Nous vous répondons rapidement.</p><p class="wiz-err" hidden></p></form></div></section>'''
@@ -235,7 +235,7 @@ zone=banner("Zone d'intervention","Hautmont et les communes alentours : vérifie
 
 # ---------- FAQ
 FAQ=[
-("Quels travaux de rénovation réalisez-vous ?","Nous intervenons à l'intérieur comme à l'extérieur : travaux d'intérieur (peinture, plâtrerie, revêtements…), entretien et aménagement d'espaces verts, petite maçonnerie et interventions de toiture (couverture, zinguerie, entretien). Décrivez votre projet dans une demande de devis, nous vous recontactons."),
+("Quels travaux réalisez-vous ?","Nous intervenons en bâtiment général, à l'intérieur comme à l'extérieur : travaux d'intérieur (peinture, plâtrerie, revêtements…), entretien et aménagement d'espaces verts, petite maçonnerie et travaux extérieurs (toiture, zinguerie, entretien). Décrivez votre projet dans une demande de devis, nous vous recontactons."),
 ("Faites-vous l'entretien des jardins et espaces verts ?","Oui. Nous assurons l'entretien de jardin et la tonte, la taille de haies et d'arbustes, le nettoyage et l'évacuation des déchets verts, ainsi que l'aménagement d'espaces extérieurs. Un entretien régulier garde votre jardin agréable toute l'année."),
 ("Combien de temps dure une réfection de toiture ?","La durée dépend de la surface, du matériau choisi, de la complexité de la toiture et de la météo. Pour une maison individuelle, comptez en général de quelques jours à une ou deux semaines. Un planning précis vous est communiqué avec le devis."),
 ("Comment savoir si j'ai une fuite de toiture ?","Plusieurs signes doivent vous alerter : des taches ou auréoles au plafond ou sur les murs, de la peinture qui cloque, une odeur d'humidité dans les combles, des tuiles ou ardoises déplacées ou cassées, ou encore de l'eau qui déborde des gouttières. Dans le doute, mieux vaut faire contrôler la toiture rapidement."),
@@ -286,7 +286,7 @@ devis=banner('Devis en ligne gratuit','Décrivez votre projet et envoyez-nous de
 <ol class="wiz-steps"><li class="on">Travaux</li><li>Photos</li><li>Logement</li><li>Coordonnées</li></ol>
 <form class="wiz-form" id="devis-form" novalidate>
 <div class="wiz-pane on" data-step="1"><h2>Quels travaux envisagez-vous ?</h2><p>Choisissez le type de travaux.</p>
-<div class="opts">{radios('travaux',["Travaux d'intérieur",'Espaces verts','Petite maçonnerie','Toiture','Rénovation générale','Réparation de fuite','Autre'])}</div>
+<div class="opts">{radios('travaux',["Travaux d'intérieur",'Espaces verts','Petite maçonnerie','Travaux extérieurs','Bâtiment général','Réparation de fuite','Autre'])}</div>
 <label class="field">Décrivez votre projet (facultatif)<textarea name="message" rows="4" maxlength="2000"></textarea></label></div>
 <div class="wiz-pane" data-step="2"><h2>Ajoutez des photos de votre projet</h2><p>Elles nous aident à préparer notre visite sur place et à comprendre votre projet.</p>
 <label class="drop" id="drop"><input type="file" accept="image/*" multiple id="photos"><b>Cliquez pour choisir vos photos</b><small>ou glissez-les ici · 6 photos maximum</small></label>
@@ -351,10 +351,10 @@ guide=banner('Guide des matériaux de couverture','Tuiles, ardoises ou bac acier
 <section class="cta"><div class="container"><div><h2>Un doute sur le bon matériau ?</h2><p>Envoyez-nous des photos de votre toiture : nous vous conseillons gratuitement.</p></div><div class="cta-btns"><a href="devis.html" class="btn btn-light">Demander un devis</a><a href="rendez-vous.html" class="btn btn-ghost">Prendre rendez-vous</a></div></div></section>"""
 
 for fn,t,d,b in [
- ('index.html','Rénovation intérieure et extérieure à Hautmont','PA Rénovation, rénovation intérieure et extérieure à Hautmont : travaux d\'intérieur, espaces verts, petite maçonnerie et toiture. Devis gratuit.',index),
- ('services.html','Services','Travaux d\'intérieur, espaces verts, petite maçonnerie et toiture : les services de PA Rénovation à Hautmont et alentours.',services),
+ ('index.html','Rénovation et bâtiment général à Hautmont','PA Rénovation, rénovation et bâtiment général à Hautmont : travaux d\'intérieur, espaces verts, petite maçonnerie et travaux extérieurs. Devis gratuit.',index),
+ ('services.html','Services','Travaux d\'intérieur, espaces verts, petite maçonnerie et travaux extérieurs : les services de PA Rénovation à Hautmont et alentours.',services),
  ('realisations.html','Réalisations','Découvrez les chantiers de rénovation intérieure et extérieure réalisés par PA Rénovation.',real),
- ('a-propos.html','À propos','PA Rénovation, artisan de la rénovation à Hautmont (59330).',about),
+ ('a-propos.html','À propos','PA Rénovation, artisan du bâtiment à Hautmont (59330) : rénovation et bâtiment général.',about),
  ('mentions-legales.html','Mentions légales','Mentions légales du site PA Rénovation.',mentions),
  ('confidentialite.html','Confidentialité','Politique de confidentialité du site PA Rénovation.',confid),
  ('zone-intervention.html',"Zone d'intervention","Zone d'intervention de PA Rénovation autour de Hautmont (59330) : vérifiez si nous intervenons dans votre commune.",zone),
