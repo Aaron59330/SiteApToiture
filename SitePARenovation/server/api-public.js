@@ -11,7 +11,7 @@ const stats = require('./stats');
 const { availability, addDays } = require('./booking');
 
 const router = express.Router();
-const WORK = ['Rénovation générale', 'Couverture', 'Zinguerie', 'Pignon', 'Velux', 'Entretien de toiture', "Travaux d'intérieur", 'Petite maçonnerie', 'Réparation de fuite', 'Autre'];
+const WORK = ["Travaux d'intérieur", 'Espaces verts', 'Petite maçonnerie', 'Toiture', 'Rénovation générale', 'Réparation de fuite', 'Autre'];
 const KINDS = ['Visite sur place pour devis', 'Diagnostic / contrôle du chantier', 'Échange téléphonique'];
 
 const hits = new Map();

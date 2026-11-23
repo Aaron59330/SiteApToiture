@@ -460,3 +460,5 @@ body[data-admin] .faq-q{cursor:text}
 @media(max-width:960px){.srv.rev .srv-photo{order:0;justify-self:start}}
 
 .hero h1{font-size:clamp(2rem,3.5vw,3rem)}
+
+.grid-svc{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
