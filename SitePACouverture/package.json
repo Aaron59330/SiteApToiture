@@ -1,8 +1,8 @@
 {
-  "name": "ap-toiture-site",
+  "name": "pa-couverture-site",
   "version": "1.0.0",
   "private": true,
-  "description": "Site vitrine AP Toiture avec espace d'administration",
+  "description": "Site vitrine P.A Couverture avec espace d'administration",
   "main": "server/index.js",
   "scripts": {
     "start": "node server/index.js",
