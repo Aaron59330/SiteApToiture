@@ -45,7 +45,7 @@ def page(fn,title,desc,body,hero=None):
 </head>
 <body>
 <div class="loader" aria-hidden="true"><div class="loader-in"><img src="images/mascotte.png" alt="" width="118" height="68"><span class="loader-bar"></span></div></div>
-<div class="topbar"><div class="container"><span class="loc">{I['pin'].replace('width="22" height="22"','width="15" height="15"')} Hautmont (59330) et alentours</span><span class="tb-right"><a class="urg" href="urgence-fuite.html"><i class="dot"></i>Urgence fuite</a><a href="tel:{TELH}">{I['phone'].replace('width="22" height="22"','width="15" height="15"')} {TEL}</a></span></div></div>
+<div class="topbar"><div class="container"><span class="loc">{I['pin'].replace('width="22" height="22"','width="15" height="15"')} Hautmont (59330) et alentours</span><span class="tb-right"><a href="tel:{TELH}">{I['phone'].replace('width="22" height="22"','width="15" height="15"')} {TEL}</a></span></div></div>
 <header class="header">
 <div class="container nav">
 <a href="index.html" class="logo" aria-label="PA Rénovation, accueil"><img src="images/mascotte.png" alt="" width="53" height="34"><span>PA <b>RÉNOVATION</b></span></a>
@@ -61,7 +61,7 @@ def page(fn,title,desc,body,hero=None):
 <div><a href="index.html" class="logo"><img src="images/mascotte.png" alt="" width="53" height="34"><span>PA <b>RÉNOVATION</b></span></a>
 <p>Rénovation et bâtiment général : travaux d'intérieur, espaces verts, petite maçonnerie et travaux extérieurs.<br>Artisan à Hautmont.</p></div>
 <div><h4>Navigation</h4>{''.join(f'<a href="{f}">{n}</a>' for f,n in PAGES)}</div>
-<div><h4>Ressources</h4><a href="devis.html">Devis en ligne</a><a href="rendez-vous.html">Prendre rendez-vous</a><a href="guide-materiaux.html">Guide : matériaux de toiture</a><a href="urgence-fuite.html">Urgence fuite</a></div>
+<div><h4>Ressources</h4><a href="devis.html">Devis en ligne</a><a href="rendez-vous.html">Prendre rendez-vous</a><a href="guide-materiaux.html">Guide : matériaux de toiture</a></div>
 <div><h4>Contact</h4><a href="tel:{TELH}">{TEL}</a><a href="mailto:{MAIL}">{MAIL}</a><span>59330 Hautmont</span></div>
 </div>
 <div class="container legal"><span>© <span id="year"></span> PA Rénovation – SIRET 000 000 000 00000</span><span class="legal-links"><a href="mentions-legales.html">Mentions légales</a><a href="confidentialite.html">Confidentialité</a><a href="/admin" class="adm-link" data-noedit>Administration</a></span></div>
@@ -159,7 +159,7 @@ contact=banner('Contact et devis gratuit','Décrivez votre projet, nous vous ré
 <form class="form" id="form"><h3>Écrivez-nous</h3><input type="hidden" name="source" value="contact"><div class="hp" aria-hidden="true"><label>Ne pas remplir<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
 <div class="frow"><label>Nom<input type="text" name="nom" required></label><label>Téléphone<input type="tel" name="tel" required></label></div>
 <label>E-mail<input type="email" name="email" required></label>
-<label>Type de travaux<select name="type"><option>Travaux d'intérieur</option><option>Espaces verts</option><option>Petite maçonnerie</option><option>Travaux extérieurs</option><option>Bâtiment général</option><option>Réparation / fuite</option><option>Urgence fuite</option><option>Autre</option></select></label>
+<label>Type de travaux<select name="type"><option>Travaux d'intérieur</option><option>Espaces verts</option><option>Petite maçonnerie</option><option>Travaux extérieurs</option><option>Bâtiment général</option><option>Réparation / fuite</option><option>Autre</option></select></label>
 <label>Votre projet<textarea name="message" rows="5"></textarea></label>
 <p class="fnote">Les informations saisies servent uniquement à répondre à votre demande. <a href="confidentialite.html">En savoir plus</a></p><button class="btn" type="submit">Envoyer la demande</button>
 <p class="ok" hidden>Merci, votre message est envoyé. Nous vous répondons rapidement.</p><p class="wiz-err" hidden></p></form></div></section>'''
@@ -236,7 +236,7 @@ FAQ=[
 ("Faites-vous l'entretien des jardins et espaces verts ?","Oui. Nous assurons l'entretien de jardin et la tonte, la taille de haies et d'arbustes, le nettoyage et l'évacuation des déchets verts, ainsi que l'aménagement d'espaces extérieurs. Un entretien régulier garde votre jardin agréable toute l'année."),
 ("Combien de temps dure une réfection de toiture ?","La durée dépend de la surface, du matériau choisi, de la complexité de la toiture et de la météo. Pour une maison individuelle, comptez en général de quelques jours à une ou deux semaines. Un planning précis vous est communiqué avec le devis."),
 ("Comment savoir si j'ai une fuite de toiture ?","Plusieurs signes doivent vous alerter : des taches ou auréoles au plafond ou sur les murs, de la peinture qui cloque, une odeur d'humidité dans les combles, des tuiles ou ardoises déplacées ou cassées, ou encore de l'eau qui déborde des gouttières. Dans le doute, mieux vaut faire contrôler la toiture rapidement."),
-("Que faire en cas de fuite urgente ?","Protégez vos biens, coupez l'électricité si l'eau est proche d'une installation, puis appelez-nous. Retrouvez tous les conseils sur notre page Urgence fuite."),
+("Que faire en cas de fuite urgente ?","Protégez vos biens, coupez l'électricité si l'eau est proche d'une installation, puis appelez-nous."),
 ("Le devis est-il gratuit ?","Oui, nos devis sont gratuits et sans engagement. Par précaution, nous préférons venir voir le chantier sur place avant d'établir un devis précis : il est ainsi clair et détaillé, et vous savez exactement ce qui est prévu avant de vous décider."),
 ("Quels matériaux de couverture proposez-vous ?","Nous intervenons sur les couvertures en tuiles, en ardoises et en bac acier. Nous vous conseillons selon votre habitation, votre budget et les contraintes de votre commune."),
 ("Quelles aides existent pour mes travaux ?","Selon la nature des travaux (notamment l'isolation de toiture) et votre situation, des aides peuvent exister : MaPrimeRénov', certificats d'économies d'énergie (CEE), éco-prêt à taux zéro, ou encore une TVA réduite (5,5 % ou 10 % selon les travaux). Les conditions et les montants évoluent régulièrement, et certaines aides dépendent de la certification de l'entreprise : renseignez-vous auprès de France Rénov' (france-renov.gouv.fr) avant de signer un devis."),
@@ -248,28 +248,6 @@ FAQ=[
 ]
 faq_items=''.join(f'<div class="faq-item"><div class="faq-q" role="button" tabindex="0" aria-expanded="false"><span>{q}</span><i class="chev"></i></div><div class="faq-a"><div><p>{a}</p></div></div></div>' for q,a in FAQ)
 faq=banner('Questions fréquentes','Les réponses aux questions que se posent le plus souvent nos clients.','FAQ')+f'<section class="section"><div class="container"><div class="faq">{faq_items}</div></div></section>'+cta
-
-# ---------- URGENCE FUITE
-tips=[("Protégez les personnes et l'électricité","Si l'eau coule près d'une prise, d'un luminaire ou du tableau électrique, coupez le courant au disjoncteur. En cas de danger immédiat (plafond qui s'affaisse), éloignez-vous et appelez les secours : 18 ou 112."),
- ("Limitez les dégâts","Placez seaux, bassines ou bâches sous la fuite, puis déplacez les meubles, tapis et objets fragiles hors de la zone touchée."),
- ("Videz la poche d'eau","Si le plafond gonfle d'eau, percez-le d'un petit trou en son centre avec un tournevis, un récipient dessous, pour éviter qu'il ne s'effondre. À faire uniquement sans danger électrique."),
- ("Ne montez pas sur le toit","Un toit mouillé est très glissant et les chutes sont graves. Laissez cette intervention à un professionnel équipé."),
- ("Photographiez les dégâts","Prenez des photos du plafond, des murs et des biens abîmés : elles serviront de preuves pour votre assurance."),
- ("Prévenez votre assureur","Déclarez le sinistre à votre assurance habitation dans les 5 jours ouvrés, en joignant vos photos.")]
-tips_html=''.join(f'<li><span class="num">{i+1}</span><h3>{t}</h3><p>{d}</p></li>' for i,(t,d) in enumerate(tips))
-urg=banner('Urgence fuite','Une fuite de toiture ? Gardez votre calme et suivez ces conseils en attendant notre passage.','Urgence fuite')+f"""<section class="section"><div class="container">
-<div class="urgent"><p class="lbl">Appelez-nous maintenant</p><a class="bigtel" href="tel:{TELH}">{TEL}</a><p>Précisez qu'il s'agit d'une fuite : nous organisons une intervention au plus vite, selon nos disponibilités.</p></div>
-</div></section>
-<section class="section alt"><div class="container"><div class="head"><p class="eyebrow">En attendant notre passage</p><h2>Les bons réflexes</h2></div><ol class="tips">{tips_html}</ol>
-<p class="warn">En cas de danger pour les personnes (effondrement, risque électrique, incendie), appelez immédiatement les secours : 18 ou 112.</p></div></section>
-<section class="section"><div class="container"><div class="head"><p class="eyebrow">Notre intervention</p><h2>Ce que nous faisons</h2></div>
-<ol class="steps">
-<li><span class="num">01</span><h3>Diagnostic</h3><p>Nous recherchons l'origine de la fuite pour traiter la cause et pas seulement les effets.</p></li>
-<li><span class="num">02</span><h3>Mise en sécurité</h3><p>Si nécessaire, nous protégeons provisoirement la zone touchée pour stopper les infiltrations.</p></li>
-<li><span class="num">03</span><h3>Réparation</h3><p>Nous réalisons une réparation durable : tuiles, ardoises, zinguerie, solins ou étanchéité.</p></li>
-<li><span class="num">04</span><h3>Contrôle</h3><p>Nous vérifions l'étanchéité et laissons le chantier propre.</p></li>
-</ol></div></section>"""+cta
-
 
 # ---------- DEVIS EN LIGNE
 def radios(name, items, first=True):
@@ -355,7 +333,6 @@ for fn,t,d,b in [
  ('confidentialite.html','Confidentialité','Politique de confidentialité du site PA Rénovation.',confid),
  ('zone-intervention.html',"Zone d'intervention","Zone d'intervention de PA Rénovation autour de Hautmont (59330) : vérifiez si nous intervenons dans votre commune.",zone),
  ('faq.html','Questions fréquentes',"Travaux d'intérieur, espaces verts, travaux extérieurs, aides : les réponses à vos questions.",faq),
- ('urgence-fuite.html','Urgence fuite','Fuite de toiture à Hautmont : conseils pour limiter les dégâts et numéro pour nous appeler.',urg),
  ('devis.html','Devis en ligne gratuit','Demandez un devis gratuit en ligne : décrivez vos travaux de rénovation et envoyez des photos à PA Rénovation, Hautmont.',devis),
  ('rendez-vous.html','Prendre rendez-vous','Prenez rendez-vous en ligne avec PA Rénovation pour une visite, un devis ou un diagnostic de chantier.',rdv),
  ('guide-materiaux.html','Guide des matériaux de couverture','Tuiles, ardoises ou bac acier : durée de vie, avantages et conseils pour choisir le bon matériau de toiture.',guide),
