@@ -64,9 +64,9 @@ router.post('/rdv/:id/status', (req, res) => {
   writeJSON('appointments.json', list);
   const subjects = { confirme: 'Rendez-vous confirmé', refuse: 'Votre demande de rendez-vous', annule: 'Rendez-vous annulé' };
   const bodies = {
-    confirme: `Bonjour ${a.nom},\n\nNous confirmons votre rendez-vous (${a.kind}) le ${frDate(a.date)} à ${a.time}.\n\nEn cas d'empêchement, merci de nous prévenir au 06 03 50 82 30.\n\nPA Rénovation`,
-    refuse: `Bonjour ${a.nom},\n\nNous ne pouvons malheureusement pas honorer le créneau du ${frDate(a.date)} à ${a.time}. Merci de nous appeler au 06 03 50 82 30 ou de choisir un autre créneau sur notre site.\n\nPA Rénovation`,
-    annule: `Bonjour ${a.nom},\n\nVotre rendez-vous du ${frDate(a.date)} à ${a.time} est annulé. Pour en fixer un nouveau, appelez-nous au 06 03 50 82 30 ou rendez-vous sur notre site.\n\nPA Rénovation`,
+    confirme: `Bonjour ${a.nom},\n\nNous confirmons votre rendez-vous (${a.kind}) le ${frDate(a.date)} à ${a.time}.\n\nEn cas d'empêchement, merci de nous prévenir au 07 89 58 02 24.\n\nPA Rénovation`,
+    refuse: `Bonjour ${a.nom},\n\nNous ne pouvons malheureusement pas honorer le créneau du ${frDate(a.date)} à ${a.time}. Merci de nous appeler au 07 89 58 02 24 ou de choisir un autre créneau sur notre site.\n\nPA Rénovation`,
+    annule: `Bonjour ${a.nom},\n\nVotre rendez-vous du ${frDate(a.date)} à ${a.time} est annulé. Pour en fixer un nouveau, appelez-nous au 07 89 58 02 24 ou rendez-vous sur notre site.\n\nPA Rénovation`,
   };
   let mailed = false;
   if (subjects[st]) mailer.send({ to: a.email, subject: subjects[st] + ' – PA Rénovation', text: bodies[st] }).then(r => { mailed = r.sent; });

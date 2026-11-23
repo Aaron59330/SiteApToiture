@@ -465,3 +465,7 @@ body[data-admin] .faq-q{cursor:text}
 
 .counters-grid{grid-template-columns:repeat(3,1fr)}
 @media(max-width:620px){.counters-grid{grid-template-columns:1fr}}
+
+.counters-grid{grid-template-columns:repeat(2,1fr);max-width:760px;margin-inline:auto}
+.hero-note.slogan{font-style:italic;font-size:1.2rem;color:var(--red2)}
+@media(max-width:620px){.counters-grid{grid-template-columns:1fr}}

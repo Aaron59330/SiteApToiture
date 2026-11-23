@@ -88,7 +88,7 @@
       document.getElementById('done').hidden = false;
       window.scrollTo({ top: root.getBoundingClientRect().top + window.scrollY - 110, behavior: 'smooth' });
     } catch (e) {
-      err.textContent = (e instanceof TypeError ? 'Le service est momentanément indisponible. ' : '') + (e.message && !(e instanceof TypeError) ? e.message : 'Appelez-nous au 06 03 50 82 30.');
+      err.textContent = (e instanceof TypeError ? 'Le service est momentanément indisponible. ' : '') + (e.message && !(e instanceof TypeError) ? e.message : 'Appelez-nous au 07 89 58 02 24.');
       next.disabled = false; next.textContent = 'Envoyer ma demande';
     }
     sending = false;

@@ -16,7 +16,7 @@ const DEFAULTS = {
     closed: [],
   },
   reviews: { googleUrl: '' },
-  notifyEmail: 'pro.ap.couverture@gmail.com',
+  notifyEmail: 'aydenpuche@gmail.com',
   siteUrl: '',
 };
 

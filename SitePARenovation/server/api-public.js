@@ -11,7 +11,7 @@ const stats = require('./stats');
 const { availability, addDays } = require('./booking');
 
 const router = express.Router();
-const WORK = ["Travaux d'intérieur", 'Espaces verts', 'Travaux extérieurs', 'Bâtiment général', 'Réparation de fuite', 'Autre'];
+const WORK = ['Rénovation intérieure', 'Rénovation extérieure', 'Espaces verts', 'Débarras', 'Bâtiment général', 'Autre'];
 const KINDS = ['Visite sur place pour devis', 'Diagnostic / contrôle du chantier', 'Échange téléphonique'];
 
 const hits = new Map();
@@ -79,7 +79,7 @@ router.post('/devis', limiter('devis', 6, 3600e3), photos, async (req, res) => {
   if (r.photos.length) lines.push(`Photos jointes : ${r.photos.length}`);
   lines.push('', r.message);
   mailer.send({ to: s.notifyEmail, subject: `Nouvelle demande ${contact ? 'de contact' : 'de devis'} : ${r.nom}${r.commune ? ' (' + r.commune + ')' : ''}`, text: lines.join('\n'), replyTo: r.email, attachments });
-  mailer.send({ to: r.email, subject: 'Votre demande a bien été reçue – PA Rénovation', text: `Bonjour ${r.nom},\n\nNous avons bien reçu votre demande. Par précaution, nous préférons venir voir votre chantier sur place avant d'établir un devis précis : nous vous contactons rapidement pour convenir d'une visite.\n\nPA Rénovation\n06 03 50 82 30` });
+  mailer.send({ to: r.email, subject: 'Votre demande a bien été reçue – PA Rénovation', text: `Bonjour ${r.nom},\n\nNous avons bien reçu votre demande. Par précaution, nous préférons venir voir votre chantier sur place avant d'établir un devis précis : nous vous contactons rapidement pour convenir d'une visite.\n\nPA Rénovation\n07 89 58 02 24` });
   res.json({ ok: true });
 });
 
@@ -112,7 +112,7 @@ router.post('/rdv', limiter('rdv', 6, 3600e3), async (req, res) => {
   mailer.send({ to: s.notifyEmail, subject: `Demande de rendez-vous : ${a.nom}, ${a.date} à ${a.time}`, replyTo: a.email,
     text: `Nouvelle demande de rendez-vous (à confirmer avant le ${a.confirmBy})\n\n${a.kind}\nLe ${frDate(a.date)} à ${a.time}\n\nNom : ${a.nom}\nTéléphone : ${a.tel}\nE-mail : ${a.email}\nAdresse : ${a.adresse}\n\n${a.note}` });
   mailer.send({ to: a.email, subject: 'Demande de rendez-vous reçue – PA Rénovation',
-    text: `Bonjour ${a.nom},\n\nNous avons bien reçu votre demande de rendez-vous pour le ${frDate(a.date)} à ${a.time}.\nNous vous confirmerons ce rendez-vous ${s.booking.confirmDaysBefore} jours avant la date prévue.\n\nPA Rénovation\n06 03 50 82 30` });
+    text: `Bonjour ${a.nom},\n\nNous avons bien reçu votre demande de rendez-vous pour le ${frDate(a.date)} à ${a.time}.\nNous vous confirmerons ce rendez-vous ${s.booking.confirmDaysBefore} jours avant la date prévue.\n\nPA Rénovation\n07 89 58 02 24` });
   res.json({ ok: true, confirmDaysBefore: s.booking.confirmDaysBefore });
 });
 

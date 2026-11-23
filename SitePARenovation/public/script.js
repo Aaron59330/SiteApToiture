@@ -26,7 +26,7 @@ if (form) {
     } catch (ex) {
       // service indisponible : on ouvre la messagerie en secours
       const body = `Nom : ${f.get('nom')}\nTéléphone : ${f.get('tel')}\nE-mail : ${f.get('email')}\nTravaux : ${f.get('type')}\n\n${f.get('message')}`;
-      if (ex instanceof TypeError) location.href = `mailto:pro.ap.couverture@gmail.com?subject=${encodeURIComponent('Demande de contact')}&body=${encodeURIComponent(body)}`;
+      if (ex instanceof TypeError) location.href = `mailto:aydenpuche@gmail.com?subject=${encodeURIComponent('Demande de contact')}&body=${encodeURIComponent(body)}`;
       else if (bad) { bad.textContent = ex.message; bad.hidden = false; }
     }
     btn.disabled = false;

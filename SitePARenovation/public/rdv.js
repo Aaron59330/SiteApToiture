@@ -65,11 +65,11 @@
     months = [...new Set(d.days.map(x => x.date.slice(0, 7)))];
     if (!d.enabled || !months.length) {
       document.getElementById('cal').hidden = true; title.hidden = false;
-      title.textContent = 'Aucun créneau n\'est disponible en ligne pour le moment. Appelez-nous au 06 03 50 82 30.';
+      title.textContent = 'Aucun créneau n\'est disponible en ligne pour le moment. Appelez-nous au 07 89 58 02 24.';
       next.disabled = true; return;
     }
     drawCal();
-  }).catch(() => { document.getElementById('cal').hidden = true; title.hidden = false; title.textContent = 'Le service de réservation est momentanément indisponible. Appelez-nous au 06 03 50 82 30.'; next.disabled = true; });
+  }).catch(() => { document.getElementById('cal').hidden = true; title.hidden = false; title.textContent = 'Le service de réservation est momentanément indisponible. Appelez-nous au 07 89 58 02 24.'; next.disabled = true; });
 
   const validate = n => {
     if (n === 1 && !(sel.date && sel.time)) return 'Choisissez une date puis une heure.';
@@ -91,7 +91,7 @@
       form.hidden = true; root.querySelector('.wiz-steps').hidden = true; document.getElementById('done').hidden = false;
       window.scrollTo({ top: root.getBoundingClientRect().top + window.scrollY - 110, behavior: 'smooth' });
     } catch (e) {
-      err.textContent = e instanceof TypeError ? 'Le service est momentanément indisponible. Appelez-nous au 06 03 50 82 30.' : e.message;
+      err.textContent = e instanceof TypeError ? 'Le service est momentanément indisponible. Appelez-nous au 07 89 58 02 24.' : e.message;
       next.disabled = false; next.textContent = 'Demander ce rendez-vous';
     }
     sending = false;
